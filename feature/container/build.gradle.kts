@@ -53,5 +53,4 @@ dependencies {
 
     api(project(":feature:login"))
     api(project(":feature:mine"))
-    api(project(":feature:room"))
 }

@@ -1,12 +1,13 @@
-package com.hao.room
+package com.hao.container.main.game
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.hao.container.R
+import com.hao.container.databinding.FragmentGameListBinding
 import com.hao.core.base.CoreBaseFragment
-import com.hao.room.databinding.FragmentGameListBinding
 
 @Route(path = "/container/gamelist")
 class GameListFragment : CoreBaseFragment<FragmentGameListBinding>() {
@@ -22,21 +23,12 @@ class GameListFragment : CoreBaseFragment<FragmentGameListBinding>() {
     }
 
     override fun initView() {
-        binding?.tvTitle?.setText(R.string.room_game_list_title)
+        binding?.tvTitle?.setText(R.string.game_list_title)
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
         binding?.recyclerView?.adapter = adapter
-        adapter.submitList(fakeGames())
+        adapter.submitList(fakeGameRows())
     }
 
     override fun initListener() {
     }
-
-    private fun fakeGames(): List<GameRow> = listOf(
-        GameRow("Chess", "Classic board · 1v1"),
-        GameRow("Texas Hold'em", "Cards · 2–9 players"),
-        GameRow("Go", "Board · ranked"),
-        GameRow("Mahjong", "Tiles · 4 players"),
-        GameRow("UNO", "Quick party · 4–10 players"),
-        GameRow("Sudoku", "Solo puzzle · daily challenge"),
-    )
 }
