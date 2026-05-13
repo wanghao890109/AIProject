@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.hao.container"
+    namespace = "com.hao.room"
     compileSdk = 35
 
     defaultConfig {
@@ -47,11 +47,10 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.recyclerview)
 
     kapt(libs.arouter.compiler)
     implementation(libs.arouter.api)
 
-    api(project(":feature:login"))
-    api(project(":feature:mine"))
-    api(project(":feature:room"))
+    api(project(":dependencies:appcore"))
 }

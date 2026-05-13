@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="room_game_list_title">Game list</string>
+    <string name="room_room_list_title">Room list</string>
+</resources>
