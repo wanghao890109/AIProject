@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/loading_bg" />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="100dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <!--google 登录-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_google_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_default_padding_lr"
+                android:background="@drawable/rectangle_radius_100dp_bg_d5cdfc"
+                android:gravity="center_vertical"
+                android:minWidth="208dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/login_google_icon" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/Detail_Textview_Style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/login_with_google" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <!--facebook登录-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_facebook_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_default_padding_lr"
+                android:background="@drawable/rectangle_radius_100dp_bg_ffffffff"
+                android:gravity="center_vertical"
+                android:minWidth="208dp"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/facebook" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/Detail_White_Textview_Style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_default_padding_lr"
+                    android:text="@string/login_with_facebook" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <!--手机号 登录-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="81dp"
+                android:background="@drawable/rectangle_radius_100dp_bg_ffffffff"
+                android:gravity="center_vertical"
+                android:minWidth="208dp"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/login_sms_icon" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/login_with_mobile" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/email_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/login_email_icon"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/sms_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@mipmap/login_sms_icon"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/login_privacy_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:paddingStart="@dimen/dimen_default_padding_lr"
+            android:paddingLeft="@dimen/dimen_default_padding_lr"
+            android:paddingEnd="@dimen/dimen_default_padding_lr"
+            android:paddingRight="@dimen/dimen_default_padding_lr"
+            android:text="@string/read_term_and_policy"
+            android:textColor="@color/label_font_color"
+            android:textSize="@dimen/font_mini_text_size_10sp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_switch_env"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="85dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/rectangle_radius_16dp_bg_ffffff"
+        android:gravity="center"
+        android:text="切换环境"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+</FrameLayout>

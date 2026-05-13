@@ -1,0 +1,60 @@
+syntax = "proto3";
+package haiyaa;
+
+import "user.proto";
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+message FamilyInfo {
+	uint64   FamilyId     =1;   // 家族Id
+	uint64   ShowId       =2;   // 家族Id
+	int32    Kind         =3;   // 家族类型
+	uint64   RoomId       =4;   // 家族房间
+	string   Name         =5;   // 家族名称
+	string   Icon         =6;   // 家族图标
+	int32    Member       =11;  // 成员数量
+	repeated uint64 Managers     =12;  // 管理员列表
+	int32    Level        =13;  // 家族等级
+	string   Notice       =14;  // 家族公告
+	string   Descript     =15;  // 家族描述
+	int64    Experence    =21;  // 家族经验
+	int32    GiftId       =22;  // 特有礼物
+	int32    GiftExp      =23;  // 礼物经验
+
+	uint64   CreaterId    =31;  // 家族创建者
+	uint64   OwnerId      =32;  // 家族拥有者
+	uint64   PhoneId      =33;  // 拥有者手机
+	int32    MemberMax    =34;  // 成员上限
+	int32    MangerMax    =35;  // 管理员上限
+	int32    OpenType     =41;  // 开放类型
+	int32    AuthType     =42;  // 审批模式
+	uint64   BitData      =43;  // 比特开关
+	string   PassWord     =44;  // 族长后台密码
+	string   IdCard       =51;  // 身份证号码
+	int32    Cooperate    =52;  // 合作状态
+	int32    Locked       =53;  // 锁定状态
+	int64    UpTime       =61;  // 更新时间
+	int64    CtTime       =62;  // 创建时间
+}
+message FamilyInfoS{
+    repeated FamilyInfo Familys = 1;    //
+}
+
+message FamilyUser {
+	uint64  FamilyId   = 1;  // 家族Id
+	uint64  UserId     = 2;  // 用户Id
+	int32   Role       = 3;  // 家族类型
+	string  Title      = 4;  // 家族名称
+	int32   Status     = 5;  // 成员数量
+	int64   Experence  = 6;  // 家族经验
+	int32   GiftTimes  = 7;  // 礼物次数
+	int64   ApplyTime  = 8;  // 申请时间
+	int64   OverTime   = 9;  // 过期时间
+	int64   JoinTime   = 10; // 加入时间
+	UserBase user      = 13; // 用户头像，未必有, 如果是麦位状态变化，也忽略麦上人的因素
+	int64   CtTime     = 11; // 记录创建时间
+	int64   UpTime     = 12; // 最近更新时间
+}
+message FamilyUserS{
+    repeated FamilyUser Fusers = 1;    //
+}

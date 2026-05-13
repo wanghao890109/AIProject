@@ -1,0 +1,75 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Haiyaa" parent="Theme.AppCompat.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/main_back_color</item>
+        <item name="colorPrimaryVariant">@color/main_back_color</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/purple</item>
+        <item name="colorSecondaryVariant">@color/purple</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="colorAccent">@color/purple</item>
+
+        <item name="android:windowBackground">@color/main_back_color</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <!--编辑框的的配置-->
+    <style name="BEditText" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:minHeight">40dip</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black_font_color_40</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!--圆角图片的配置-->
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <!--Switch开关颜色配置-->
+    <style name="Switch" parent="Theme.AppCompat.Light">
+        <!--开启时的颜色-->
+        <item name="colorControlActivated">@color/base_yellow</item>
+        <!--关闭时的颜色-->
+        <item name="colorSwitchThumbNormal">@color/switch_off</item>
+        <!--关闭时的轨迹颜色-->
+        <item name="android:colorForeground">@color/switch_off</item>
+    </style>
+
+    <!-- 底部弹出activity 透明动画-->
+    <style name="BottomActivityAnimation" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/BottomActivityAnimationStyle</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
+    </style>
+    <!-- 底部弹出activity遮罩动画-->
+    <style name="BottomActivityBlackAnimation" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/BottomActivityAnimationStyle</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <!--是否开启半透明背景-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--半透明背景透明度-->
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
+    </style>
+
+    <style name="BottomActivityAnimationStyle">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_bottom_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_bottom_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_bottom_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_bottom_exit</item>
+
+    </style>
+
+</resources>

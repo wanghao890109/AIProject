@@ -1,0 +1,380 @@
+syntax = "proto3";
+package haiyaa;
+import "enums.proto";
+
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+message PbHead{
+    uint32  appId   = 1; // 命令组
+    uint32  cmd     = 2; // 命令字
+    uint64  uid     = 3; // UserId， 用户Id = ReqBase.UserId
+    uint32  bid     = 4; // BussnissId, Svr生成
+    uint32  mid     = 5; // MessageId，业务号，客户端发起，原样返回
+    uint32  pam     = 6; // 头参
+    uint32  svrTime = 7; // 服务器当前时间，client如果需要则使用
+    string  token   = 8; // Token
+    bytes   pbBody  = 9; // 业务PB，消息体 = ReqBase.Data = RetBase.Data
+    DeviceInfo dev 	= 10; // 设备信息, 需要则填，不需要不填
+}
+
+message DeviceInfo 
+{
+    string   deviceId   = 1;    //设备Id
+    string   devName    = 2;    //设备名 华为P30Plus，小米10，等等。
+    string   osVersion  = 3;    //操作系统版本，IOS 14.3  / And 10 等等。
+    int32    platform   = 4;    //安卓写1，IOS写2
+    string   channelId  = 5;    //安卓渠道号，应用市场
+    string   appVersion = 6;    //语音App版本， 1.0.10 
+    double   longitude  = 7;    //坐标经度
+    double   latitude   = 8;    //坐标纬度
+    string   net        = 9;    //1 wifi网络， 2 4G/5G 
+    string   verCode   = 10;    //语音App/Code版本，1.0.10 
+}
+
+message NilProto{
+}
+
+message IntProto {
+	int32  Value  = 1;    //查询参数
+}
+
+message LongProto {
+	uint64  Value  = 1;    //查询参数
+}
+
+message StringProto {
+	string  Value  = 1;    //查询参数
+}
+
+message UserIdQuery {
+	uint64      userId  = 1;    //查询参数
+	int32    	skip	= 2;	//分页参数
+	int32       limit	= 3;	//分页参数
+}
+
+message RoomIdQuery {
+	uint64      roomId  = 1;    //查询参数
+	int32    	skip	= 2;	//分页参数
+	int32       limit	= 3;	//分页参数
+}
+
+message GameIdQuery {
+	uint64      gameId  = 1;    //查询参数
+	int32    	skip	= 2;	//分页参数
+	int32       limit	= 3;	//分页参数
+}
+
+message ChanIdQuery {
+	int32       chanId  = 1;    //查询参数
+	int32    	skip	= 2;	//分页参数
+	int32       limit	= 3;	//分页参数
+}
+
+//需要区分版本逻辑的命令，如登录，三方登录
+message VersionQuery {
+	uint64      userId  = 1;    //查询参数
+	int32    	skip	= 2;	//分页参数
+	int32       limit	= 3;	//分页参数
+    DeviceInfo  device  = 4;    //设备信息
+}
+
+message StrQuery {
+	string      strId   = 1;    //查询参数
+    int32    	skip	= 2;	//分页参数
+	int32       limit	= 3;	//分页参数
+}
+
+message StrsQuery {
+	repeated string ids  = 1;   //多个
+	uint32      type	 = 2;	//查询类型
+	uint32      parm	 = 3;	//查询参数，必要时填写，如 UserInfoPart
+}
+
+message IdQuery {
+	uint64      id      = 1;    //查询的等Id,具体根据Cmd
+	uint32      type	= 2;	//查询类型
+	uint32      parm	= 3;	//查询参数，必要时填写，如 UserInfoPart
+	int32    	skip	= 4;	//查询参数，必要时填, 如果查询返回是列表类，这里表示分页信息
+	int32       limit	= 5;	//查询参数，必要时填写
+}
+
+message IdsQuery {
+	repeated uint64 ids  = 1;   //查询的厂商，游戏，瞬间，评论等Id,具体根据Cmd
+	uint32      type	 = 2;	//查询类型
+	uint32      parm	 = 3;	//查询参数，必要时填写，如 UserInfoPart
+}
+
+//目前仅用于评论回复列表，Main 瞬间ID，Sub评论Id
+message DoubleIdQuery {
+	uint64      mainId  = 1;    //查询的厂商，游戏，瞬间，评论等Id,具体根据Cmd
+    uint64      subId   = 2;    //查询的厂商，游戏，瞬间，评论等Id,具体根据Cmd
+	uint32      type	= 3;	//查询类型
+	uint32      parm	= 4;	//查询参数，必要时填写，如 UserInfoPart
+	int32    	skip	= 5;	//查询参数，必要时填, 如果查询返回是列表类，这里表示分页信息
+	int32       limit	= 6;	//查询参数，必要时填写
+}
+
+message TimeRangeQuery {
+	uint64      userId   = 1;   //查询参数
+	int64       begTime	 = 2;	//查询范围开始时间
+	int64       endTime	 = 3;	//查询范围结束时间
+}
+
+//用户勋章
+message DecoInfo {
+	int32   decoType =1;  //装饰类型 1、等级挂件 2、头像挂件 3、公屏气泡、4、进房动效、5、房间背景
+    int32   decoId   =2;  //装扮Id
+    string  decoName =4;  //特效名字
+    int32   status   =3;  //是否在用，0, 1在用，2、下架
+    int32   showType =6;  //特效类型, 0, 1普通，2、SVG 
+    string  showUrl  =7;  //特效地址
+    int64   stTime   =11; //获得时间
+	int64   edTime   =12; //下架时间
+}
+message DecoInfoS {
+  repeated DecoInfo decos = 1;
+}
+
+//用户状态(装饰)和道具(背包系统),GiftInfo->DecoInfo, 勋章，这里需要重新调整
+message DecoInUse {
+    uint64  userId   =1;
+    DecoInfo deco    =2;
+	int32   status   =3;  //是否在用，0，1在用，2、未装扮
+    int32   ableDay  =4;  //未用的状态看可用天数
+    int64   stTime   =5;  //开始使用时间
+	int64   edTime   =8;  //在用的状态看结束时间
+}
+
+//用户状态(装饰)和道具(背包系统),GiftInfo->DecoInfo, 勋章，这里需要重新调整
+message UserDeco {
+    uint64  userId   = 1;
+    repeated DecoInUse decos = 2;
+}
+message UserDecoS {
+    repeated UserDeco decos = 1;
+}
+
+enum AcceType {
+    AT_Null  	= 0; // 
+	AT_LEVEL 	= 1; // 用户等级
+	AT_AVATAR	= 2; //	头像挂件
+	AT_BUBBLE   = 3; // 公屏气泡
+	AT_INROOM	= 4; // 进房动效
+}
+
+//用户状态(装饰)和道具(背包系统),GiftInfo->UserDeco->DecoInfo
+message AcceInfo {
+	int32   acceType =1;  //装饰类型 1、等级挂件 2、头像挂件 3、公屏气泡、4、进房动效、5、房间背景
+    int32   acceId   =2;  //装扮Id
+    string  acceName =4;  //特效名字
+    int32   status   =3;  //是否在用，0, 1在用，2、下架
+    int32   showType =6;  //特效类型, 0, 1普通，2、SVG 
+    string  showUrl  =7;  //特效地址
+    int64   stTime   =11; //上架时间
+	int64   edTime   =12; //下架时间
+}
+message AcceInfoS {
+  repeated AcceInfo acces = 1;
+}
+
+//用户状态(装饰)和道具(背包系统),GiftInfo->DecoInfo
+message UserAcce {
+	int32   acceType =1;  //装饰类型 1、等级挂件 2、头像挂件 3、公屏气泡、4、进房动效、5、房间背景
+    int32   acceId   =2;  //装扮Id
+	int32   status   =3;  //是否在用，0，1在用，2、未装扮
+    int32   ableDay  =4;  //未用的状态看可用天数
+    string  showUrl  =5;  //特效地址
+    int64   stTime   =7;  //开始使用时间
+	int64   edTime   =8;  //在用的状态看结束时间
+}
+message UserAcceS {
+    repeated UserAcce acces = 1;
+}
+
+message DeviceInfoS{
+	repeated DeviceInfo devs = 1; 
+}
+
+message CheckAuth {
+	uint64    userId    = 1;    //查询用户B
+    string    devId     = 2;    //设备名
+    int64     cmd       = 3;    //命令查询
+    int64     accStatus = 4;    //后台存储，待校验账户等级
+    string    tokenId   = 5;    //从用户来，待校验Token    
+}
+
+message LikeAction {
+    uint32 like     = 1;     //动作 1：喜欢，2、不喜欢
+    uint32 type     = 2;     //操作类型,1动态， 2,评论 3 人
+    uint64 likedId  = 3;     //游戏、厂商、瞬间id，UserId
+}
+
+//用户态度或选择
+message UserAttitude {
+    uint32 attitude = 1;     //动作 1、喜欢，2、不喜欢, 3、无感
+    uint64 newsId   = 2;     //游戏、厂商、瞬间id，UserId
+    uint32 type     = 3;     //操作类型,1,游戏,2,厂商,3,瞬间 4,评论
+}
+
+message PbError {
+	int32  errCode  = 1; // 错误码
+    string errMsg 	= 2; // 错误文案
+}
+
+message UtilRet {
+	int32  retCode  = 1;  // 返回码
+	int64  retTime  = 2;  // 后台操作时间; // 错误码
+    string retTxt 	= 3;  // 返回文案
+	//int32  RetPam   = 4;  // 返回参数  //关注返回当前两个关系 UserRelationType
+}
+
+message NilMsg {
+	int64  msgTime  = 1;  // 空请求，可不填
+}
+
+// 认证信息
+message VerifyInfo{
+	int32 verifyId    = 1;
+    string verifyName = 2;
+    string verifyIcon = 3;
+}
+
+message MusicInfo
+{
+    string 	musicId    = 1;//曲库Id
+    string  name       = 2;//歌曲名字
+    string  artist     = 3;//艺术家
+    string  url        = 4;//歌曲地址
+	int32   state      = 5;//状态
+	int32   downNum    = 6;//总下载量
+	int32   size       = 7;//文件大小
+	uint64  upUid      = 8;//上传者
+	string  upName     = 9;//上传者姓名
+	int64   upTime     = 11;//上传时间
+	int64   ctTime     = 12;//记录时间
+}
+
+message MusicInfoS{
+    string  strId = 2;
+    repeated MusicInfo musics = 1;
+}
+
+message PhotoInfo
+{
+	int64   width      = 1;//图片宽度;
+	int64   height     = 2;//图片高度;
+	int64   size       = 3;//文件大小;
+	string  url        = 4;//图片地址
+	string  note       = 5;//用户备注
+	string  name       = 6;//如果图片有名字
+	string  originUrl  = 7;//原图地址
+    string  jumptoUrl  = 8;//跳转地址
+    string  photoId    = 9;//图像Id，用于相册
+}
+
+message PhotoInfoS{
+    repeated PhotoInfo photos = 1;
+}
+
+message AudioInfo
+{
+    string    name      = 1;
+    uint32    secs      = 2; //语音文件时长;
+    uint64    size      = 3; //文件大小;
+    string    url       = 4; //
+}
+
+message VideoInfo
+{
+	string    name      = 1;
+	string    note      = 2;//用户备注的视频信息
+    int64     secs      = 3;//视频文件时长;
+    int64     size      = 4;//文件大小;
+    string    url       = 5;//视频链接（或者说是视频原链接）
+    string    thumbnail = 6;//缩略图url;
+    int64     width     = 7;
+    int64     height    = 8;
+	string    weUrl     = 9;//我们存储过的视频链接（我们下载后转存到自己视频仓库后的新链接）
+}
+
+message FileInfo
+{
+    string    name      = 1;
+    uint64    size      = 2;//文件大小;
+    string    url       = 3;   
+}
+
+//图文链接
+message HyperlinkInfo{
+    HLinkType   type = 1;
+    string      title = 2;//链接标题
+    string  	link = 3; //
+    string  	imgUrl = 4;//链接图片
+    string 		text = 5;//链接内容
+    string 		extInfo = 6;//
+}
+
+// 系统消息
+message SystemMessgae {
+    int32 action = 1; // 动作  SystemMessgaeActionType
+    bytes value  = 2; // 数据
+}
+
+// 链接文本
+message LinkText {
+    message Node {
+        string text     = 1; // 文本内容
+        string color    = 2; // 文本颜色
+        int32  textType = 3; // 1：纯文本，2：用户id
+        //uint64 id     = 4; // 跳转id = roomid
+        string jumpUrl  = 5; // 跳转进房或跳URL
+	}
+	repeated Node    list     = 4;
+}
+
+message TipInfo{
+    string text = 1;//提示内容
+    string des = 2; //提示内容
+    string extInfo = 3;//ExtType;orderid;order-op;
+}
+
+message WordQuery {
+	string      wordKey           	= 1;    //查询的瞬间，人员，评论等Id,具体根据Cmd
+	uint32      type		        = 2;	//查询类型
+	uint32      parm			    = 3;	//查询参数，必要时填写，如 UserInfoPart
+	int32    	skip				= 4;	//查询参数，必要时填, 如果查询返回是列表类，这里表示分页信息
+	int32       limit				= 5;	//查询参数，必要时填写
+}
+
+message WordCount {
+	string      wordKey           	= 1;    //关键字
+	int64    	hitNum				= 2;	//频次
+}
+
+message WordCountS {
+	repeated WordCount words = 1;
+}
+
+message Banner {
+    string longImage            = 1;    //长图
+    string shortImage           = 2;    //短图
+    string title                = 3;
+    string subTitle             = 4;
+    string jumpUrl              = 5;
+}
+
+message BannerS {
+	repeated Banner banners = 1;
+}
+
+message Country {
+    string Name            = 1;    //国家名
+    string ShortName       = 2;    //简写
+    string Code            = 3;    //地区码
+}
+
+message CountryS {
+	repeated Country countrys = 1;
+    string   locateAt         = 2;
+}

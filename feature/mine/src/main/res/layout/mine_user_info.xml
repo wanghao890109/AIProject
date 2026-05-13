@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_user_info_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dimen_default_padding_lr"
+    android:paddingRight="@dimen/dimen_default_padding_lr">
+
+    <com.hao.ui.widget.imageview.CompatImageView
+        android:id="@+id/iv_user_icon"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        app:iv_circleType="circle" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_user_nickname"
+            style="@style/Title_First_Textview_Bold_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@mipmap/ic_sexy_girl_42x42"
+            android:drawablePadding="6dp"
+            android:ellipsize="end"
+            android:lines="1"
+            tools:text="User Name" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_id_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@mipmap/ic_id_56x56" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_id"
+                style="@style/Label_Textview_Style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                tools:text="9999" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_copy"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginLeft="4dp"
+                android:background="@mipmap/ic_copy" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lv1"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <ProgressBar
+                android:id="@+id/pb_level_progress"
+                style="@style/level_progress_horizontal"
+                android:layout_width="100dp"
+                android:layout_height="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                tools:progress="50" />
+
+            <TextView
+                android:id="@+id/tv_level_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0/60"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:src="@mipmap/forward_white_right" />
+</androidx.appcompat.widget.LinearLayoutCompat>

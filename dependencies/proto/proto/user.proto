@@ -1,0 +1,468 @@
+syntax = "proto3";
+package haiyaa;
+import "public.proto";
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa"; 
+
+
+//列表及房间，装扮和勋章
+message UserBase {
+    uint64      userId          = 1;     //账号Id
+    uint64      acctId          = 2;     //账号Id
+	int32       accState        = 3;     //账号状态
+    string      region          = 4;     //IP属地 
+	string      nickName        = 5;     //真名，CH里优先显示真名
+    string      avatar          = 6;     //头像地址
+    int32       gender          = 7;     //性别, 0 未设置 1男 2女
+	int64       birthday        = 8;     //生日
+	//int32     levelId         = 11;    //等级
+    int32       coinNum         = 12;    //货币数量
+	string      signature       = 13;    //个性简介
+	string      audiobio        = 14;    //音频简介
+	int32       online          = 15;    //在线状态，0 不在线， > 0 在线
+    uint64      roomId          = 16;    //所在房间, 房间、关系列表、搜索中都可能展示
+    int32       gameId          = 17;    //所在游戏状态,房间、关系列表、搜索中都可能展示
+    int32       gameState       = 18;    //游戏状态, 房间、关系列表、搜索中都可能展示
+    //DecoInfoS decos           = 21;    //用户取得的勋章, 需要列表展示
+    UserAcceS 	acces           = 22;    //在用的装扮组，需要列表展示 [挂架，底纹,座驾等][1,9]
+	WelthLevel  level           = 23;    //财富等级，段位
+}
+
+message UserBaseS {
+	repeated UserBase ubase = 1;
+}
+
+message UserInfo {
+    uint64   userId       = 1; //账号Id
+	UserBase userBase 	  = 2; //客态 + 主态
+	DecoInfoS userDeco    = 3; //勋章类
+	C2CInfo   userC2C     = 5; //客态
+	SocialInfo userSocial = 6; //客态 + 主态
+	WelthInfo  userWelth  = 7; //主态
+	RegisterInfo userReg  = 8; //主态
+}
+
+message UserInfoS {
+    repeated    UserInfo   userInfos    = 1;    //账号信息
+	//int64     lastTime = 2; //上一次阅读的时间，判断New
+}
+
+message SocialInfo {
+	int32       attenNum        = 1;    //关注数量
+	int32       fansNum         = 2;    //粉丝数量
+	int32       friendNum       = 3;    //好友数量
+}
+
+//主态财富类信息
+message WelthInfo { 
+	int32       giftNum         = 1;    //礼物数量
+	int32       loveNum         = 2;    //爱心数量
+	int32       coinNum         = 3;    //钻石数量
+	int32       silverNum       = 4;    //银币数量
+	double      bCoinNum        = 5;    //黑钻数量
+	int32       welthNum        = 6;	//财富数量
+	int32       charmNum        = 7;	//魅力数量
+	int32       levelid         = 8;    //财富等级
+	//int32     ticketNum 	= 11;	//奖券数量
+	//int32     pointNum 		= 12;	//积分数量
+	int32       viewNum 		= 13;	//来访数量
+	//int32     missionId    = 16;   //提现等级
+	//int32     walletId     = 17;   //钱包称号
+	int64       openDraw        = 21;   //是否开通提现，0 未开通，开通时间    
+	string      tronAddr        = 22;   //波场账号
+	int64       tronBind		= 23;	//钱包账号绑定时间
+    string      drawJump		= 24;   //提现跳转
+	int32       drawPoint       = 25;   //提现积分（可提现的黑钻数量）
+}
+
+//主态注册类信息
+message RegisterInfo {
+	//RegisterInfo
+	uint64    	phoneId         = 1;    //手机Id, 放到注册类信息里
+	string      email			= 2;    //Email
+	string      googleId		= 3;    //谷歌Key/Token
+	string      realName        = 4;    //实名姓名
+	string      idCard          = 5;    //身份证号
+	int64 		regTime	        = 11;	//注册时间
+	int64	    banTime	 		= 12;  	//被封禁的时间
+	int64	    logTime	 		= 13;  	//最新登录时间
+	int64       offTime     	= 14;  	//最新离线时间
+	uint64      loveId          = 15;   //情侣账号
+	uint64      mentorId        = 16;   //邀请人Id  
+	int32       verify          = 17;   //认证情况
+	//LoveInfo    ulove    		= 43;   //用户的情侣信息，有情侣信息才有
+}
+
+//动态信息
+message C2CInfo {
+	//C2CInfo
+	bool        todaylove       = 1;    //今日是否已点过爱心
+	int32       relation        = 2;    //用户关系 1 已关注我 2 我已关注 3 已互关，如果是互关好友，会有一定的爱心值
+	int64       relationVal     = 3;    //关系值=亲密度，互关好友才有
+	int64       relationTime    = 4;  	//缔结关系时间
+}
+
+//不同区域，展示信息内容不一样，用于关系列表中
+message UserRelation {
+	UserBase	userBase 		= 1;	// 头像信息
+	//C2CInfo   userC2C         = 2; 	// 关系信息  
+	bool        todaylove       = 2;    // 今日是否已点过爱心
+	int32       relation        = 3;    // 用户关系 1 已关注我 2 我已关注 3 已互关，如果是互关好友，会有一定的爱心值
+	int64       relationVal     = 4;    // 关系值=亲密度，互关好友才有
+	int64       relationTime    = 5;  	// 缔结关系时间
+}
+
+//不同区域，展示信息内容不一样，用于关系列表中
+message UserRelationS {
+	repeated UserRelation relations = 1;
+}
+
+enum LoveStatus
+{
+	LS_Zero = 0;
+	LS_NEED_ACK     = 0x01; //已发出，待回应
+	LS_IN_LOVE  	= 0x02; //已同意
+	LS_OVERDUE    	= 0x03; //已过期，超时未回应
+	LS_REJECT    	= 0x04; //已拒绝
+	LS_APART 		= 0x05; //已分手
+}
+
+message InviteInfo {
+	int32      limitn          = 1;     //剩余次数
+	repeated UserInvite ivts   = 2;     //邀请记录 
+}
+
+enum UserRelationType {
+	UserRelationType_Zero = 0;
+	UR_Fans         = 0x01; //我的粉丝，被关注,他关注了我
+	UR_Atten    	= 0x02; //我的关注, 关注中,我关注了他
+	UR_Friend       = 0x03; //我的好友，或者彼此喜欢
+	UR_Block      	= 0x04; //我的屏蔽名单，非推荐，非主页，非瞬间
+	UR_BlockMe      = 0x05; //屏蔽我的名单，非推荐，非主页，非瞬间
+}
+
+enum UserRelationAction {
+	UserRelationAction_Zero = 0;
+	UR_AddAtten    	= 0x01;	//加关注
+	UR_DelAtten  	= 0x02;	//取消关注
+	UR_AddBlock     = 0x03;	//拉黑
+	UR_DelBlock  	= 0x04;	//取消拉黑
+	UR_AddCare      = 0x05;	//添加特别关注
+	UR_DelCare      = 0x06;	//移除特别关注
+	UR_AddFans   	= 0x07;	//加粉丝，超级操作
+	UR_DelFans  	= 0x08;	//移除粉丝，超级操作
+}
+
+//UserPair，A，B
+message UserPair {
+	uint64    askerId           		= 1;    //查询发起人A 查询 B
+	uint64    userId           		    = 2;    //查询用户B
+	uint32    askType					= 3;	//查询类型，查用户信息时，填需要拿些信息，查关系时使用（UserRelationType），关系变更时，填关系动作类型(UserRelationAction),
+	uint32    askParm					= 4;	//查询参数，必要时填写，如 UserInfoPart
+	int32    	 skip					= 5;	//查询参数，必要时填
+	int32       limit					= 6;	//查询参数，必要时填写
+}
+
+//多查
+message OneUserToMulti{
+
+	uint64    askerId           		= 1;    //查询发起人
+    repeated  uint64    userIds         = 2;    //账号Id
+	uint32    askType					= 3;	//查询类型，查用户信息时，填需要拿些信息，查关系时，填关系类型
+	uint32    askParm					= 4;	//查询参数，必要时填写
+}
+
+message UserIdS {
+    repeated    uint64   userIds        = 1;    //账号信息
+}
+
+message UserState {
+	uint64 userId  = 1; //用户id
+	int32  online  = 2; //在线状态, 1 在线，0 离线
+	uint64 roomId  = 3; //所在房间，不在房间为0
+	int32  gameId  = 4; //所在游戏，不在游戏为0
+	int32  gameState=5; //游戏状态，Enum GameState
+}
+
+message UserStateS {
+	repeated UserState status = 1; //用户状态
+}
+
+message UserStatusIn {
+	uint64      userId         = 1; //用户id
+	int32    	status		   = 2;	
+	int32    	gsid		   = 3;	
+}
+
+message UserStatusInS {
+	repeated UserStatusIn stss = 1;
+}
+
+message FuzzySearchResult {
+	UserInfoS users = 1;
+}
+
+// //用户等级信息
+message UserMission {
+	uint64  userId    = 1;  //用户id
+    int32   missionId = 2;  //佣金等级Id
+    int32   mission   = 3;  //佣金比例[45-75]
+	int32   curMicro  = 4;  //今日在麦时长，单位分钟
+	repeated int32  preMicros = 5;  //过去7天的麦上时间，单位分钟
+}
+
+// 用户当前任务
+message UserTask {
+	string  icon   	   = 1;   //任务类型Icon
+	string  taskName   = 2;   //任务名
+	int32   taskValue  = 3;   //任务值
+	int32 	curValue   = 4;   //当前值
+	int32   point      = 5;   //奖励积分
+	int32   finished   = 6;	  //任务是否已完成 完成✔，未完成
+}
+
+message UserTaskS {
+	repeated UserTask DayTask  = 1; //每日任务
+	repeated UserTask WeekTask = 2; //每周任务
+	int32    DrawPoint   = 3;//当前积分
+}
+
+//用户等级（财富等级）
+message WelthLevel {
+    int32   LvId   	 = 1;  //等级Id
+	string  LvName   = 2;  //等级名称
+	int32   LvExp    = 3;  //当前等级所需分数
+	int32   GapExp   = 4;  //距离升级分数
+	string  LvIcon   = 5;  //Icon  
+	string  LvDeco   = 6;  //头环
+}
+
+//钱包称号
+message WalletTitle {
+    int32   TitleId  = 1;  //兜里金币等级
+	int32   CoinNum  = 2;  //最低金币数量
+	string  Title    = 3;  //称号名称
+	string  BgColor  = 4;  //称号底色
+}
+
+//钱包称号
+message WalletTitleS {
+	repeated WalletTitle titles = 1;
+}
+
+//用户封禁
+message UserProhibit {
+    uint64  userId   = 1;  //封禁Id
+	string  reason   = 2;  //封禁原因
+	int64   banTime  = 3;  //封禁截止时间
+}
+
+message UserLocation {
+	uint64  userId   = 1;  //
+	string  StrIp    = 2;  //
+	string  country  = 3;  //国家
+	string  region   = 4;  //地区，省
+	string  city  	 = 5;  //城市
+	DeviceInfo uDevice=6;  //设备信息
+}
+
+
+//用户旅程
+message UserJourney {
+    uint64  userId   = 1;  //用户Id
+	string  journey  = 2;  //用户旅程
+	int64   stTime   = 3;  //旅程开始时间
+	int64   edTime   = 4;  //旅程结束时间
+}
+
+message UserJourneyS{
+	repeated UserJourney journeys = 1;
+}
+
+//7天被注册算邀请，过期不算
+message UserInvite{
+	uint64      userId          = 1;     //账号Id
+	uint64      inviteUid       = 2;     //邀请UserId
+	uint64      phoneId         = 3; 	 //邀请手机号
+	string      alias           = 4;     //邀请备注
+	uint32      state           = 5;	 //状态 10: 邀请 1: 已注册 3: 已过期
+	int64       inviteTime      = 6;	 //邀请时间
+	int64       overduTime      = 7;	 //过期时间
+	int64       loginTime       = 8;	 //被邀请人注册时间
+}
+
+message UserInviteS{
+	repeated UserInvite invites = 1;                 //邀请列表
+}
+
+// //用户状态
+// enum EnumStatus {
+// 	US_Offline    	= 0x00;	//离线
+// 	US_Online    	= 0x01;	//在线不在房间
+// 	US_Room_Listen  = 0x02;	//房间听众
+// 	US_Room_Speak   = 0x03;	//房间发言
+// }
+// enum UserInfoPart
+// {
+// 	UserInfoPart_Zero = 0;
+// 	UR_SimpleShow   = 0x01; //姓名头像签名
+// 	UR_RelationNum  = 0x02; //关系数量，粉丝关注黑名单特别关注
+// 	UR_LevelInfo    = 0x04; //等级信息，活跃积分及其他
+// 	UR_WealthInfo 	= 0x08; //财富信息
+// }
+
+// enum UserBitSet
+// {
+// 	UserBitSet_Zero = 0;
+// 	UBS_StrangeMsg  = 0x01; //接收陌生人消息
+// 	UBS_MyCardShow  = 0x02; //允许发送名片
+// }
+
+// //只显示最近24内小时在线的好友
+// message FriendInfo {
+// 	uint64      userId          = 1;     //账号Id
+// 	string      nickName        = 2;     //真名，CH里优先显示真名
+//     string      avatar          = 3;     //头像地址
+// 	uint32      state           = 4;	 //状态
+// 	string      statedes        = 5;
+// 	uint64      roomid          = 6;
+// 	string      roomtopic       = 7;
+// 	int64       loginTime       = 8;
+// }
+
+// message FriendInfoS {
+// 	repeated FriendInfo friends = 1;
+// }
+
+// //用户小卡信息
+// message UserCard {
+// 	uint64      userId          = 1;     //账号Id
+// 	uint64      nominated       = 2;     //推荐人Id
+// 	string      realName        = 3;     //真名，可重复，区别于CH
+// 	string      nickName        = 4;     //昵称，不重复，唯一
+//     string      avatar          = 5;     //头像地址
+// 	int32       attenNum        = 6;     //关注数量
+// 	int32       fansNum         = 7;     //粉丝数量
+// 	int32       relation        = 8;     //和我的关系 1 已关注 2 未关注 3 已互关
+// 	int64 		regTime	        = 9;	 //注册时间
+// }
+
+// //用户大卡信息
+// message UserPage {
+// 	UserInfo    uinfo           = 1;
+// 	int32       relation        = 2;     //和我的关系 1 已关注 2 未关注 3 已互关
+// 	int32       onlineState     = 3;
+// 	UserInfo    nominated       = 4;
+// }
+
+// message UserInfoOld {
+// 	uint64      userId          = 1;     //对内调用Id
+// 	uint64      acctId          = 2;     //对外展示Id
+// 	int32       accState        = 3;     //账号状态，0，未注册，1，已姓名 2已注册，3已被邀请 4已选爱好 5已选推荐 正常使用
+// 	string      region          = 4;     //IP属地
+// 	uint64      phoneId         = 5;     //手机Id 86135 和 135 作为两个账号处理，+特殊处理
+// 	string      nickName        = 6;     //昵称，可重复，区别于CH
+//     string      avatar          = 7;     //头像地址
+// 	int32       age          	= 9;     //年龄
+// 	string      signature       = 10;    //个性简介
+// 	string      audiobio        = 11;    //音频简介
+// 	int32       gender          = 12;    //性别, 0 未设置 1男 2女
+// 	int32       tall            = 13;    //身高，单位cm
+// 	int64       birthday        = 14;    //生日，
+// 	int32       walletId        = 16;    //钱包称号
+// 	int32       online          = 17;    //在线状态，0 不在线， > 0 在线
+// 	uint64      roomId          = 18;    //当前所在的房间
+// 	int32       attenNum        = 20;    //关注数量
+// 	int32       fansNum         = 21;    //粉丝数量
+// 	int32       friendNum       = 22;    //好友数量
+// 	int32       giftNum         = 23;    //礼物数量
+// 	int32       loveNum         = 24;    //爱心数量
+// 	int32       goldNum         = 25;    //金币数量
+// 	int32       coinNum         = 26;    //金币数量
+// 	double      bCoinNum        = 27;    //黑钻数量
+// 	int32       welthNum        = 28;	 //财富数量
+// 	int32       charmNum        = 29;	 //魅力数量
+// 	int32       levelid         = 30;    //财富等级
+// 	int32       ticketNum 		= 31;	 //奖券数量
+// 	int32       pointNum 		= 32;	 //积分数量
+// 	int32       viewNum 		= 33;	 //来访数量
+// 	int32       missionId       = 34;    //提现等级
+// 	int32       verify          = 35;    //认证情况
+// 	int32       bitSet          = 36;    //比特开关
+// 	repeated string 	album   = 37;	 //用户相册
+// 	repeated int32 		decos   = 38;    //获得勋章
+// 	repeated int32 		acces   = 39;    //在用装扮
+// 	string      realName        = 51;    //实名姓名
+// 	string      idCard          = 52;    //身份证号
+// 	//时间类
+// 	int64 		regTime	        = 45;	 //注册时间
+// 	int64	    banTime	 		= 46;  	 //被封禁的时间
+// 	int64	    logTime	 		= 47;  	 //最新登录时间
+// 	int64       offTime     	= 48;  	 //最新离线时间
+// 	//关系信息
+// 	uint64      loveId          = 19;    //情侣账号
+// 	uint64      mentorId        = 44;    //邀请人Id  
+// 	LoveInfo    ulove    		= 43;    //用户的情侣信息，有情侣信息才有
+// 	//动态信息
+// 	bool        todaylove       = 41;    //今日是否已点过爱心
+// 	int32       relation        = 40;    //用户关系 1 已关注我 2 我已关注 3 已互关，如果是互关好友，会有一定的爱心值
+// 	int64       relationVal     = 42;    //关系值=亲密度，互关好友才有
+// 	int64       relationTime    = 49;  	 //缔结关系时间
+// }
+
+
+// enum UserPart {
+// 	NONE      = 0;    //无效参数
+//  GENDER    = 1;    //性别, pbr.Gender
+// 	AGE_TALL  = 2;    //年龄身高, pbr.Tall, pbr.Age
+//  EDUCATION = 3;    //教育经历
+//  SCHOOL    = 4;    //学校
+//  JOB_SALARY 	 = 5; //年薪
+// 	ADDRESS  = 6;     //居住地及家乡
+// 	VIEW_AGE = 7;	  //恋爱观及年龄限制
+// 	INTEREST = 8;	  //兴趣爱好
+// 	AIMFOR   = 9;     //恋爱目标
+// 	ABOUTME  = 10;    //关于我
+// 	AUDIOBIO = 11;    //声音BIO
+// 	VIDEOBIO = 12;    //视频BIO
+// 	MYDAILY  = 21;
+// 	MYHOBBY  = 22;
+// 	MYTRIP   = 23;
+// 	MYPETS   = 24;
+// 	MYWORK   = 25;
+// 	MYFRIENDS = 26;
+// 	MYOTHERS = 27;
+// 	NICKNAME = 31;
+// 	AVATAR   = 32;
+// 	SWITCH   = 99;    //开关类更新比特开关
+// }
+
+//登录时的用户信息补全及更新
+// message UserInit {
+// 	uint64      UserId  = 1;    // 
+// 	UserPart    upart   = 2;	// enum UserPart
+// 	UserInfo	uinfo   = 3;	// 头像信息
+// }
+
+//不同区域，展示信息内容不一样，只需要头像的地方
+// message UserHead {
+//     uint64      userId          = 1;     //账号Id
+//     uint64      acctId          = 2;     //账号Id
+// 	string      nickName           = 3;     //真名，CH里优先显示真名
+//     string      avatar          = 4;     //头像地址
+//     string      region          = 5;     //IP属地 
+//     int32       gender          = 6;     //性别, 0 未设置 1男 2女
+// 	int32       levelId            = 11;    //等级
+//     int32       coinNum         = 12;    //货币数量
+// 	string      signature          = 13;    //个性简介
+//     uint64      roomId          = 14;    //所在房间, 房间、关系列表、搜索中都可能展示
+//     int32       gameId          = 15;    //所在游戏状态,房间、关系列表、搜索中都可能展示
+//     int32       gameState       = 16;    //游戏状态, 房间、关系列表、搜索中都可能展示
+//     repeated int32 decos        = 21;    //用户取得的勋章
+//     repeated int32 acces        = 22;    //在用的装扮组[挂架，底纹,座驾等][1,9]
+// }
+
+// message UserHeadS {
+//     repeated UserHead heads = 1;
+// }
+

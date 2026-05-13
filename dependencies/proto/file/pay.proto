@@ -1,0 +1,255 @@
+syntax = "proto3";
+
+package haiyaa;
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+//创建订单
+message TradePay{
+    string   productId   =1;  //商品Id
+}
+
+//取消支付
+message TradeCancel{
+	string   orderId   =1;  //订单Id
+	string   reason    =2;  //备注
+}
+
+//支付完成验签加钻
+message TradeReceipt{
+	string   orderId   =1;  //订单Id
+	string   productId =2;  //商品Id
+	string   receipt   =3;  //apple-receipt / goole-token
+}
+
+//提现/兑换
+message TradeBCoin{
+    int32   bcoin   =1;  //兑换的黑钻数量
+}
+
+//pay-支付订单
+enum GoodKind {
+	GK_Zero  	= 0; // 
+	GK_ANDROID 	= 0x01; //	
+	GK_IOS	    = 0x02; //	用户个性设定类
+	GK_GUANWANG_ALIPAY	= 0x03; //官网支付宝
+	GK_GONGZHONGHAO	= 0x04; //	账户社交统计类
+    GK_GUANWANG_WEIXIN	= 0x05; //官网微信
+    GK_SHOUJI_ALIPAY	= 0x06; //手机支付宝
+    GK_APP_ALIPAY	= 0x07; //支付宝APP
+}
+
+//充值商品
+message PayProduct{
+    string  productId=2;  //商品Id
+	string  name     =3;  //礼物名称
+	int32   kind     =4;  //支付渠道, GoodKind
+	int32   status   =5;  //状态，是否上架 1、上架 2、下架，上架，且要在St-Ed时间范围内
+	double  price    =6;  //商品价格
+	int32   coin     =7;  //商品对应的金币
+	string  url      =8;  //商品资源地址
+}
+
+//充值商品
+message PayProductS{
+    repeated PayProduct products = 1;
+}
+
+//兑换商品
+message ExchProduct{
+    int32   goodId   =1;  //商品Id
+	string  name     =3;  //礼物名称
+	int32   status   =4;  //状态，是否上架 1、上架 2、下架，上架，且要在St-Ed时间范围内
+	double  bcoin    =5;  //商品价格
+	int32   coin     =6;  //商品对应的金币
+	int32   free     =7;  //商品对应的赠送金币
+	string  url      =8;  //商品资源地址
+}
+
+//兑换商品
+message ExchProductS{
+    repeated ExchProduct products = 1;
+}
+
+//提现商品
+message DrawProduct{
+    int32   goodId   =1;  //商品Id
+	string  name     =3;  //商品名称
+	int32   status   =4;  //状态，是否上架 1、上架 2、下架，上架，且要在St-Ed时间范围内
+	double  price    =5;  //商品价格=黑钻数
+	double  bcoin    =6;  //商品对应的金币
+	int32   tax      =7;  //商品扣税及手续费
+	string  url      =8;  //商品资源地址
+}
+
+//提现商品
+message DrawProductS{
+    repeated DrawProduct products = 1;
+}
+
+//金币明细类型
+enum CoinRecordType {
+	CRT_Zero      = 0;
+    CRT_CHARGE_IN = 0x01; //充值
+	CRT_GIFT_OUT  = 0x02; //礼物
+	CRT_COIN_EXCH = 0x03; //兑换
+	CRT_COIN_DRAW = 0x04; //提现
+	CRT_RED_IN    = 0x11; //抢红包
+    CRT_RED_OUT   = 0x13; //发红包
+	CRT_ACT_IN    = 0x21; //活动领取
+    CRT_ACT_OUT   = 0x22; //活动支出
+    CRT_OM_IN     = 0x31; //运营发放
+    CRT_OM_OUT    = 0x32; //运营回收
+}
+
+//订单状态
+enum OrderStatus {
+	OS_Zero  	        = 0;   // 
+	OS_CREATE 	        = 1;   //待支付
+	OS_CANCEL			= 2;   //取消支付
+	RECEIPT_FAIL		= 3;   //验签失败
+	OS_PAYED	        = 100; //已支付，钻石已兑现
+}
+
+//支付商品订单
+message PayOrder{
+    uint64  userId   =1;  //商品Id
+    string  orderId  =2;  //订单号
+    string  productId=3;  //商品Id
+    string  goodDesc =4;  //订单描述
+	string  goodName =5;  //礼物名称
+	double  price    =6;  //商品价格
+	int32   coin     =7;  //商品对应的金币
+    int32   status   =8;  //订单状态
+	string  receipt  =9;  //苹果签名
+	string  note     =10; //订单备注
+	int64   ctTime   =13; //创建时间，订单创建时间
+	int64   upTime   =14; //更新时间，订单更新时间
+}
+message PayOrderS{
+	repeated PayOrder orders = 1;
+}
+
+//提现商品订单
+message DrawOrder{
+    uint64  userId   =1;  //商品Id
+    string  orderId  =2;  //订单号
+    int32   goodId   =3;  //商品Id
+    string  goodDesc =4;  //订单描述
+	double  price    =6;  //商品价格
+	double  bcoin    =7;  //商品对应的黑钻
+    int32   status   =8;  //订单状态
+	string  note     =9;  //订单备注
+	int64   ctTime   =13; //创建时间，订单创建时间
+	int64   upTime   =14; //更新时间，订单更新时间
+}
+
+message DrawOrderS{
+	repeated DrawOrder orders = 1;
+}
+
+message StrId{
+    string id = 1;
+}
+
+//金币明细，加钻不要直接操作数据库，而要走接口，才能进明细记录里
+message CoinRecord {
+	uint64 userId   = 1; 
+	uint64 roomId   = 2; //所在房间
+	string icon     = 3; //类型图标
+    int32  alter    = 4; //钻石变化数量，可能为负值
+    string title    = 5; //标题
+	int64  upTime   = 6; //变化时间
+}
+
+message CoinRecordS {
+    repeated CoinRecord records = 1;
+}
+
+//提现状态
+enum DrawStatus {
+	DS_Zero  	        = 0;    // 
+	DS_CREATE 	        = 1; 	//已发起提现
+	DS_VERIFY 	        = 2; 	//提现审核中
+	DS_CANCEL	        = 3; 	//用户取消
+	DS_DENYED	        = 4; 	//审核拒绝
+	DS_FAIURE	        = 5; 	//系统失败
+	DS_TRANSED	        = 100;  //已支付，已转账，账单已完成
+}
+
+//同意提现
+message DrawApprove {
+	string   orderId   =1;  //订单Id
+	bool     agree     =2;  //是否允许
+	string   operator  =3;	//操作员
+	string   passwd    =4;	//操作密码
+	string   note      =5;  //其他备注
+}
+
+//三方变更 钻石、黑钻, 超级资产
+message SuperFundOper {
+	uint64   userId    =1;  //被操作人
+	int32    oper      =2;  //操作类型
+	int32    amount    =3;  //操作数量
+	string   uname     =4;  //管理员姓名
+	string   passwd    =5;  //管理员密码
+	string   note	   =6;  //备注说明， 比如三方充值，家族结算
+}
+
+//操作类型
+enum CoinOper {
+	CO_Zero  		= 0;  //
+	CO_AddCoin 		= 1;  //加钻	
+	CO_SubCoin	    = 2;  //扣钻
+	CO_ClearCoin	= 3;  //清钻石，不管有多少全清掉
+	CO_AddBCoin		= 11; //加黑钻
+	CO_SubBCoin		= 12; //扣黑钻
+	CO_ClearBCoin   = 13; //清黑钻，不管多少全清理
+}
+
+
+//银行卡，只能绑定一张，输入验证码后绑定完成，需要先解绑，再重新绑定
+message BankCard {
+    uint64  userId   = 1;  //人员
+	string  userName = 2;  //姓名 - 必填
+    string  cardId   = 3;  //银行卡号 - 必填
+    string  bankName = 4;  //银行名 - 必填
+	string  province = 5;  //开户行所在省份 
+	int64   phoneId  = 6;  //银行预留手机号
+	int32   vcode    = 7;  //验证码，带着验证码来绑定或解绑银行卡
+    int64   ctTime   = 8;  //发起时间
+	int64   upTime   = 9;  //最新进度时间
+}
+
+//支付宝信息
+message AliInfo {
+    uint64  userId   = 1;  //人员
+	string  realName = 2;  //真实姓名, 必填
+	string  aliId    = 3;  //支付包账号，提现时必填, 身份认证时不填 
+	string  idCard   = 4;  //身份证编号，选填
+    int64   ctTime   = 8;  //发起时间，选填
+	int64   upTime   = 9;  //最新进度时间，选填
+}
+
+// ID+Name认证信息
+message IdNameVerify {
+    uint64  userId   = 1;  //人员
+	string  realName = 2;  //真实姓名, 必填
+	string  idCard   = 3;  //身份证编号，必填
+}
+
+// 身份核验
+message FaceVerifyReq {
+    uint64  userId   = 1;  //人员
+	string  realName = 2;  //真实姓名, 必填
+	string  idCard   = 3;  //身份证编号，必填
+}
+
+// 身份核验认证信息返回
+message FaceVerifyRsp {
+    uint64  userId     = 1;  //人员
+	string  realName   = 2;  //真实姓名, 原样返回
+	string  idCard     = 3;  //身份证编号，原样返回
+	string  BizSeqNo   = 5;   //认证单据号，=服务器单号，本地单号， 微信返回信息，供端上使用
+	string  FaceId     = 6;   //人脸核验Id，微信返回返回信息，供端上使用
+}

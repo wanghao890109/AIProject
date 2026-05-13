@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="animateStateChanges" format="boolean" />
+    <attr name="aspectRatio" format="float" />
+    <attr name="dark_theme" format="boolean" />
+    <attr name="zShadowPaddingOvalR" format="dimension" />
+    <!--搜索编辑框的样式-->
+    <declare-styleable name="BEditText">
+        <attr name="bems" format="integer" />
+        <attr name="ChineseLimit" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="BImageView">
+        <attr name="animateStateChanges" />
+        <attr name="zShadowPaddingOvalR" />
+        <attr name="aspectRatio" />
+    </declare-styleable>
+    <declare-styleable name="BTextView">
+        <attr name="animateStateChanges" />
+        <attr name="underline" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="BLinearLayout">
+        <attr name="animateStateChanges" />
+        <attr name="aspectRatio" />
+    </declare-styleable>
+    <declare-styleable name="BFrameLayout">
+        <attr name="animateStateChanges" />
+        <attr name="aspectRatio" />
+        <attr name="match_max" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="BScrollView">
+        <attr name="max_height" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpandChild">
+        <attr name="mini_height" format="dimension" />
+    </declare-styleable>
+
+    <!--自定义密码框属性-->
+    <declare-styleable name="PartySeat">
+        <attr name="partyType">
+            <enum name="single" value="1" />
+            <enum name="many" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <!--   自动换行线性布局 -->
+    <declare-styleable name="PinEntryEditText">
+        <attr name="pinAnimationType" format="enum">
+            <enum name="popIn" value="0" />
+            <enum name="fromBottom" value="1" />
+            <enum name="none" value="-1" />
+        </attr>
+        <attr name="pinCharacterMask" format="string" />
+        <attr name="pinRepeatedHint" format="string" />
+        <attr name="pinLineStroke" format="dimension" />
+        <attr name="pinLineStrokeSelected" format="dimension" />
+        <attr name="pinCharacterSpacing" format="dimension" />
+        <attr name="pinTextBottomPadding" format="dimension" />
+        <attr name="pinLineColors" format="color" />
+        <attr name="pinBackgroundDrawable" format="reference" />
+        <attr name="pinBackgroundIsSquare" format="boolean" />
+    </declare-styleable>
+
+    <!--自定义设置Item属性-->
+    <declare-styleable name="WarpLinearLayout">
+        <attr name="grivate" format="enum"><!--对齐方式 !-->
+            <enum name="right" value="0"></enum>
+            <enum name="left" value="1"></enum>
+            <enum name="center" value="2"></enum>
+        </attr>
+        <attr name="horizontal_Space" format="dimension"></attr>
+        <attr name="vertical_Space" format="dimension"></attr>
+        <attr name="isFull" format="boolean"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="SettingItemView">
+        <attr name="leftText" format="string" />
+        <attr name="rightText" format="string" />
+        <attr name="leftTextSize" format="dimension" />
+        <attr name="rightTextSize" format="dimension" />
+        <attr name="leftTextColor" format="color" />
+        <attr name="rightTextColor" format="color" />
+        <!-- 左侧侧图片-->
+        <attr name="leftImage" format="reference" />
+        <!-- 左侧图片的大小-->
+        <attr name="leftImageSize" format="dimension" />
+        <!-- 左侧图片的显示-->
+        <attr name="leftImageVisible">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <!-- 右侧图片-->
+        <attr name="rightImage" format="reference" />
+        <!-- 右侧图片的大小-->
+        <attr name="rightImageSize" format="dimension" />
+        <!-- 右侧图片的显示-->
+        <attr name="rightImageVisible">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <!-- 右侧文字-->
+        <attr name="rightTextVisible">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <!-- 右侧箭头图标-->
+        <attr name="rightArrowVisible">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <!--        背景圆角设定，
+        top ：顶部左右两个圆角
+        middle： 无圆角
+        bottom：底部左右两个圆角
+        all：四个圆角
+        -->
+        <attr name="backgroundCorner">
+            <enum name="top" value="0" />
+            <enum name="middle" value="1" />
+            <enum name="bottom" value="2" />
+            <enum name="all" value="3" />
+        </attr>
+
+        <!-- 右侧开关是否显示-->
+        <attr name="switch_" format="boolean" />
+        <!--左侧的文字描述的内容和显示 隐藏-->
+        <attr name="leftDescribeText" format="string" />
+        <attr name="leftDescribeVisible">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <!--文件渐变属性-->
+    <declare-styleable name="AbsFlowLayout">
+        <attr name="tab_type">
+            <enum name="rect" value="0" />
+            <enum name="tri" value="1" />
+            <enum name="round" value="2" />
+            <enum name="color" value="3" />
+            <enum name="res" value="4" />
+        </attr>
+        <attr name="tab_round_size" format="dimension" />
+        <attr name="tab_color" format="color|reference" />
+        <attr name="tab_width" format="dimension" />
+        <attr name="tab_height" format="dimension" />
+        <attr name="tab_margin_l" format="dimension" />
+        <attr name="tab_margin_t" format="dimension" />
+        <attr name="tab_margin_r" format="dimension" />
+        <attr name="tab_margin_b" format="dimension" />
+        <attr name="tab_item_res" format="reference" />
+        <attr name="tab_item_autoScale" format="boolean" />
+        <attr name="tab_scale_factor" format="float" />
+        <attr name="tab_visual_count" format="integer" />
+        <attr name="tab_width_equals_text" format="boolean" />
+        <attr name="tab_orientation">
+            <enum name="vertical" value="1" />
+            <enum name="horizontal" value="2" />
+        </attr>
+        <attr name="tab_action_orientaion">
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+
+        <attr name="tab_click_animTime" format="integer" />
+        <attr name="tab_isAutoScroll" format="boolean" />
+    </declare-styleable>
+
+    <!--头字母索引-->
+    <declare-styleable name="TabColorTextView">
+        <attr name="colortext_default_color" format="color|reference" /> <!--默认颜色-->
+        <attr name="colortext_change_color" format="color|reference" /> <!--渐变颜色-->
+    </declare-styleable>
+
+
+    <!--裁剪框属性-->
+    <declare-styleable name="CropImageView">
+        <attr name="guidelines">
+            <enum name="off" value="0" />
+            <enum name="onTouch" value="1" />
+            <enum name="on" value="2" />
+        </attr>
+
+        <attr name="fixAspectRatio" format="boolean" />
+        <attr name="aspectRatioX" format="integer" />
+        <attr name="aspectRatioY" format="integer" />
+    </declare-styleable>
+
+    <!-- 自定义验证码输入框-->
+    <declare-styleable name="vericationCodeView">
+        <!--输入框的数量-->
+        <attr name="vcv_et_number" format="integer" />
+        <!--输入类型-->
+        <attr name="vcv_et_inputType">
+            <enum name="number" value="0" />
+            <enum name="numberPassword" value="1" />
+            <enum name="text" value="2" />
+            <enum name="textPassword" value="3" />
+        </attr>
+
+        <attr name="vcv_et_typeface">
+            <enum name="normal" value="0" />
+            <enum name="futura" value="1" />
+        </attr>
+
+        <!--输入框的宽度-->
+        <attr name="vcv_et_width" format="dimension|reference" />
+        <!--输入框文字颜色-->
+        <attr name="vcv_et_text_color" format="color|reference" />
+        <!--输入框文字大小-->
+        <attr name="vcv_et_text_size" format="dimension|reference" />
+        <!--输入框背景-->
+        <attr name="vcv_et_bg" format="reference" />
+        <!--光标样式-->
+        <attr name="vcv_et_cursor" format="reference" />
+        <!--是否隐藏光标-->
+        <attr name="vcv_et_cursor_visible" format="boolean" />
+        <!--输入框间距，不输入则代表平分-->
+        <attr name="vcv_et_spacing" format="dimension|reference" />
+
+    </declare-styleable>
+
+
+    <declare-styleable name="GridIndicatorView">
+
+        <attr name="bmpNomal" format="reference" />
+
+        <attr name="bmpSelect" format="reference" />
+
+        <attr name="pointHeight" format="integer" />
+
+        <attr name="pointWidth" format="integer" />
+    </declare-styleable>
+
+    <!--小圆点属性-->
+    <declare-styleable name="CircleDotView">
+        <attr name="circleWidth" format="dimension" />
+        <attr name="circleBackground" format="color|reference" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="circlePaddingHorizontal" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="DrawableTextView">
+        <attr name="drawableTint" format="reference|color"/>
+
+        <attr name="leftDrawable" format="reference|color"/>
+        <attr name="rightDrawable" format="reference|color"/>
+        <attr name="topDrawable" format="reference|color"/>
+        <attr name="bottomDrawable" format="reference|color"/>
+
+        <attr name="leftDrawableWidth" format="reference|dimension"/>
+        <attr name="rightDrawableWidth" format="reference|dimension"/>
+        <attr name="topDrawableWidth" format="reference|dimension"/>
+        <attr name="bottomDrawableWidth" format="reference|dimension"/>
+
+        <attr name="leftDrawableHeight" format="reference|dimension"/>
+        <attr name="rightDrawableHeight" format="reference|dimension"/>
+        <attr name="topDrawableHeight" format="reference|dimension"/>
+        <attr name="bottomDrawableHeight" format="reference|dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="RoundFrameLayout">
+        <attr name="radius" format="dimension" />
+        <attr name="aspectRatio" />
+    </declare-styleable>
+</resources>

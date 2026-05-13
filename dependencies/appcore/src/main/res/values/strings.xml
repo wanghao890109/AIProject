@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="privacy_policy_content">我们（Haiyaa）非常重视您的隐私保护和个人信息保护，在您使用我们的APP前，请仔细阅读以下条款并同意《用户协议》和《隐私政策》，以接受我们的服务。</string>
+    <string name="user_agreement_key">《用户协议》</string>
+    <string name="privacy_policy_key">《隐私政策》</string>
+    <string name="agree">同意</string>
+    <string name="disagree">不同意</string>
+    <string name="user_agreement_privacy">用户协议及隐私政策</string>
+    <string name="read_privacy_content">请您仔细阅读下述文本并确认是否同意《用户协议》和《隐私政策》&#160;</string>
+
+
+</resources>

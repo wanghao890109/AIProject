@@ -1,0 +1,183 @@
+syntax = "proto3";
+package haiyaa;
+
+import "user.proto";
+
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+//GWLogin
+message DeviceTcpLogin
+{
+	//DeviceInfo   device   = 1; // 设备信息
+    CheckAccount accCheck = 2; // 登录信息
+    string        tokenId = 3; // 如果有Token, 则无密登录
+}
+
+//1、通过什么方式登录
+enum LoginType{
+    AT_Zero  	= 0; // 
+	AT_Device 	= 1; // 设备登录账号
+	AT_Phone  	= 2; // 手机登录账号
+	AT_Email  	= 3; // 邮箱登录账号
+	AT_BoB 		= 4; // 球球账号登录
+	AT_QQ 		= 5; // QQ登录
+	AT_WeChat 	= 6; // 微信登录
+	AT_Apple 	= 7; // 苹果账号
+	AT_Google 	= 8; // 谷歌登录账号
+	AT_FaceBook = 9; // Face登录账号
+}
+
+//密码类型
+enum PasswdType{
+    PT_Zero  	= 0; // 无需密码
+	PT_PassWd  	= 1; // 密码登录
+	PT_SMS 	    = 2; // 短信校验登录
+	PT_Email  	= 3; // 邮件确认
+	PT_Token    = 4;
+}
+
+//短信校验类型
+enum VerifyCodeType {
+	VCT_None  = 0;   		 // 默认方式,老的验证码短信格式
+	VCT_Login = 1;   		 // 登录注册，账号升级验证码
+    VCT_Login_Resent = 2;    // 登录重发
+	VCT_FindPwd = 3; 		 // 找回密码
+	VCT_Exchg_OldPhone = 4;  // 更换手机号，老手机号验证
+	VCT_Exchg_NewPhone = 5;  // 更换手机号，新手机号验证
+	VCT_RealUser_Check = 6;  // 实名认证前验证手机号码
+	VCT_Disable_Account = 7; // 停用账号
+	VCT_Register = 8;        // 注册账号
+	VCT_Perfect_Account = 9; // 账户信息补充
+	VCT_Coin_Exchange = 10;  // 兑换金币验证码
+	VCT_BCoin_View = 11;  	 // 查看黑钻
+	VCT_BCoin_Exchange = 12; // 兑换黑钻
+	VCT_BCoin_Draw = 13;  	 // 黑钻提现
+	VCT_Acct_BindUnBind = 14;  	 // 账号绑定和解绑
+}
+
+//1-预登陆;url="/login/prelogin/";
+message CheckAccount{
+	string       account = 1;   // 账户，硬件Id, MAC地址，或者是手机设备Id
+	int32  		 accType = 2;   // 账户类型
+    string       accPwd  = 3;   // 密码
+    int32   	 pwdType = 4;   // 密码类型
+}
+
+//1-PC登录专用;url="/login/prelogin/";
+message CheckBindAcct{
+	int32        action  = 1;   // 1 绑定， 2解绑
+	int32  		 accType = 2;   // 账户类型, 如果是谷歌，accout中填写谷歌邮箱，如果是邮箱，accout填写邮箱
+	string       account = 3;   // 账户，硬件Id, MAC地址，或者是手机设备Id, 手机号
+    string   	 vcCode  = 4;   // 校验码
+}
+
+message BindAcct{
+	int32  		 accType = 1;    // 账户类型, 如果是谷歌，accout中填写谷歌邮箱，如果是邮箱，accout填写邮箱
+	string       account = 2;    // 账户，硬件Id, MAC地址，或者是手机设备Id, 手机号int32  		 accType = 3;   
+	string       title    = 3;
+	string       icon     = 4;
+	int32  		 bindStatus = 5; // 待绑状态，1已绑， 2未绑
+}
+
+message BindAcctS{
+	repeated BindAcct accts = 1;
+}
+
+//请求或校验 邮箱或手机 校验码
+message CheckVerifyCode{
+	int32   vcType      = 1;    //校验码类型，校验用途
+	string  vcCode      = 2;    //密码
+	string  account  	= 3;    //账户,这里是手机号或邮箱，邮箱也可以发送验证码
+	int32   accType 	= 4;    //账户类型，这里是手机号或邮箱，邮箱也可以发送验证码
+}
+
+//请求密码2密码
+message UserPwd{
+	string  account     = 1;    //账户,这里是手机号或邮箱，邮箱也可以发送验证码
+	int32   accType 	= 2;    //账户类型，这里是手机号或邮箱，邮箱也可以发送验证码
+	string  verify      = 3;    //校验码，是短信验证码，或老密码
+	string  newPwd      = 4;    //新密码
+}
+
+message LoginState {
+	int32 State     = 1;
+	LoginInfo login = 2;
+}
+
+message LoginInfo {
+	UserInfo user = 1;		//用户信息
+	string tokenId = 2;		//每次登陆会刷新Token，保留14天
+	string gateAddr = 3;	//长连接地址返回，每次登陆后会返回
+	string uploadAddr = 4;	//上传地址
+	string sourceAddr = 5;  //如果返回短地址，APP自动补齐前缀
+	SDKInfo sdkinfo = 6;    //语音SDK
+}
+
+message SDKInfo {
+	string sdkId  = 1;	//语音SDK Id
+	string sdkKey = 2;	//语音SDK Token
+}
+
+message ThirdLogin {
+	int32  		 accType  = 1;   // 账户类型，enum LoginType.4 5 6 
+    string       userName = 2;   // 第三方账户名或昵称
+	string       avatar   = 3;   // 头像信息
+	string       openId   = 4;   // 第三方Id
+	string		 tokenId  = 5;	 // 第三方Token
+	string 		 Province = 6;	 // 省份
+	string 		 City     = 7;	 // 城市
+	int32        gender   = 8;   // 性别 男1 女2
+}
+
+//强更
+message CheckUpgrade{
+	string version  = 1;  //当前版本
+	int32  osType   = 2;  //1:Android 2:IOS
+	string buildNo  = 3;  
+}
+
+message UpgradeInfo{
+	int64  pubTime 		= 1;  //发布时间
+	int32  status 	    = 2;  //升级状态，1:最新版本 2:不做任何提示 3:提示升级 4:强制升级
+	string tips 	    = 3;  //更新提示文案
+	string downUrl 		= 4;  //下载地址
+	string apkSize 		= 5;  //包大小
+	string version		= 6;  //升级到的版本
+	string md5			= 7;  //包的md5
+	string buildNo      = 8;  //version + build 共同判断一个版本
+}
+
+message UpgradeInfoS {
+	repeated UpgradeInfo upinfos   = 1; //所有的版本升级信息
+			 UpgradeInfo latestAnd = 2; //安卓最新版本
+		 	 UpgradeInfo latestIos = 3; //IOS最新版本
+}
+
+message DouStatS {
+	int32  OnlineUser = 1;  //当前在线多少人
+	int32  OnlineRoom = 2;  //当前在线多少人
+	int32  RoomUser   = 3; 	//当前房间人数
+}
+
+// 请求验证码2密码
+// message UserVcodePwd{
+// 	string  account     = 1;    //账户, 这里是手机号或邮箱，邮箱也可以发送验证码
+// 	int32   accType 	= 2;    //账户类型，这里是手机号或邮箱，邮箱也可以发送验证码
+// 	string  vcode      = 3;     //老密码
+// 	string  newPwd      = 4;    //新密码
+// }
+
+// 报表
+// message ClientNewestInfoRet{
+// 	repeated  ClientUpgradeInfo infos = 1;  //客户端信息
+// }
+// message ClientUpgradeInfo {
+// 	int64  pubTime = 1;  //发布时间
+// 	int32  device = 2;  //1:Android 2:IOS
+// 	string updateTip = 3; //更新提示文案
+// 	string downloadUrl = 4; //下载地址
+// 	string apkSize = 5;  //包大小
+// 	string newestVersion = 6;  //最新版本号	
+// }
+

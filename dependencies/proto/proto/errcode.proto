@@ -1,0 +1,158 @@
+syntax = "proto3";
+package haiyaa;
+
+option java_package = "com.hao.proto";
+option go_package   ="svr/public/proto/haiyaa";
+
+enum ErrCode {
+    OK = 0; // Request successful//
+    NotSvc       = 9001; // Opening soon, please stay tuned //
+    SvrUpdate    = 9002;  //Upgrade service temporarily closed, please try again later//
+    TcpRecvErr   = 9003;  //Request timed out, please try again later//
+    HttpRecvErr  = 9004;  //Request timed out, please try again later//
+    JsonDecode   = 9101;  //Request timed out, please try again later//
+    PbDecode     = 9102;  //Request timed out, please try again later//
+    ProcessErr   = 9201;  //Request timed out, please try again later//
+    VcSendFail   = 9202;  //Verification code sending failed, please ensure your phone is available//
+    CacheErr     = 9301;  //Service exception, please try again later//
+    DbErr        = 9302;  //Service exception, please try again later//
+    RedisErr     = 9303;  //Service exception, please try again later//
+    A2SErr       = 9401;  //Service exception, please try again later//
+    A2STimeout   = 9402;  //Service exception, please try again later//
+    AsyncErr     = 9403;  //Service exception, please try again later//
+    JsonEncode   = 9501;  //Service exception, please try again later//
+    PbEncode     = 9502;  //Service exception, please try again later//
+    TcpSendErr   = 9601;  //Service exception, please try again later//
+    HttpSendErr  = 9602;  //Service exception, please try again later//
+    NotExistInDB = 10001; //No data found//
+    
+    TooMany = 11001;   //Too many requests, please try again later//
+    TooFast = 11002;   //Slow down, your requests are too fast//
+    NoUid = 11003;     //User ID abnormal, please contact the official//
+    PamErr = 11004;    //Request abnormal, please try again later//
+    UserParm = 11005;  //User data abnormal, please try again later//
+    NoRecord = 11006;       //No data found//
+    NickNotValid = 11007;   //Nickname contains sensitive words, please reset//
+    DirtyWords = 11008;     //Contains sensitive words//
+	UrlError = 11009;     //Request Url Error//
+    SearchTooShort = 11101; //Search length is too short//
+
+    AccNotExist = 12002;  //Account does not exist, please register before use//
+    AccPwdErr = 12003;    //Incorrect account or password, please check and try again//
+    AccInUse = 12004;     //This account has already been bound//
+    AccFreeze = 12005;    //This account is banned for violation, please wait for unblocking //
+    AccAuthLimit = 12006; //This account has been restricted for use//
+    AccThirdAuth = 12008; //Third-party authorization anomaly, please try again later//
+    YouthLimit = 12009;   //Minors are prohibited from searching//
+
+    PhoneHasUsed = 12101;  //This phone number has already been registered//
+    PhoneNotValid = 12102; //The phone number format is not correct//
+    NameTooShort = 12103;  //Sorry! The length of the username needs to be controlled between 5-15 characters //
+    NameTooLong = 12104;   //Sorry! The length of the username needs to be controlled between 5-15 characters //
+
+    NameDuplicate = 12105; //Sorry! This username has been taken, try a new one//
+    NickDuplicate = 12106; //Sorry! This nickname has been taken, try a new one//
+    AccNotReal = 12107;    //Please fill in the real name information that needs to be verified, to help us confirm your identity //
+    AliNotBind = 12108;    //Sorry! You have not yet bound the Alipay account//
+    TodayDrawed = 12109;   //Sorry! There is already a cash withdrawal application today, cannot apply for cash withdrawal again //
+
+    VerifyFail       = 12201;  //Verification code incorrect, please reenter// 
+    VerifyOverdue    = 12202;  //Verification code has expired, please resend//
+    TokenFail        = 12203;  //Account information has expired, please re-login//
+    TokenOverdue     = 12204;  //Login information has expired, please re-login//
+    CanNotDoSelf     = 12205;  //Cannot perform this operation on yourself//
+
+    PasswordError     = 12206;  //Password Incorrect, please reenter//
+    AccountNotExist   = 12207;  //Account does not exist, please reenter or register a new account//
+    AccountLocked     = 12208;  //Account has been locked, please contact customer service//
+    PermissionDenied  = 12209;  //No permission to perform this operation//
+    RequestTooFrequent= 12210;  //Request too frequently, please try again later//
+
+    SmsTooFast     = 12301;   //Text messages are being sent too frequently, please try again in 1 minute//
+    SmsTooMany     = 12302;   //Have exceeded the daily limit, please try again tomorrow//
+
+    YouHaveLover   = 12401; //You already have a partner, isn't this a bit fickle?//
+    UserHaveLover  = 12403; //You were too late, the other person already has a partner//
+    RelationValLow = 12411; //Intimacy is not enough to initiate a lovers' letter//
+    ErrIntimacyStateErr   = 12412; //Already confessed your feelings//
+    ErrMailStateErr       = 12413; //Confession letter status error//
+
+    RoomNotExist   = 13001;   //The room has already been disbanded, try other rooms//
+    UserNotOnSeat  = 13002;   //The user is not on the microphone//
+    UserHasOnMic   = 13003;   //The user is already on the microphone//
+    UserNotInRoom  = 13004;   //The user is not in the room//
+    UserHasInRoom  = 13005;   //The user is already in the room//
+    SeatHasToken   = 13006;   //The seat is already taken//
+    SeatClosed     = 13007;   //The seat has been closed//
+    UserNotMgr     = 13011;   //Only administrators can perform this operation//
+    RoomNeedPwd    = 13012;   //The room is locked, please enter the password//
+    RoomPwdErr     = 13013;   //The password is incorrect, try another room//
+    BeKicked       = 13014;   //You have been kicked from the room, please try again in 5 minutes//
+    RoomNeedChan   = 13015;   //The room needs a channel tag, please select one//
+    RoomNeedReal   = 13021;   //According to relevant policy requirements, real-name authentication is required to create a room//
+    InviteCD       = 13016;   //An invitation has been sent to this user, cannot send frequent invites//
+    OwnerCanNot    = 13017;   //The room owner or super administrator cannot perform this operation//
+    RoomFull       = 13018;   //This room has reached its maximum capacity, try another room//
+    RoomNeedCreate = 13019;   //You need to create a room first//
+    UserNotExist   = 13020;   //User Not exist//
+    RoomDuplicated = 13022;   //Room already exist, you can not create a room.//
+    
+    GiftNotValid   = 13101;   //The gift does not exist or has been taken off the shelves//
+    GiftNumTooBig  = 13102;   //The quantity of the gift is abnormal, please fill in the corresponding quantity//
+    CoinNotEnough  = 13103;   //Insufficient number of coins//
+    CoinNotRandom  = 13104;   //When the number of coins is less than a thousand, random gifts cannot be given//
+    GoldNotEnough  = 13105;   //Insufficient number of gold coins//
+    TicketNotEnough  = 13106; //Insufficient number of tickets//
+    GiftNotEnough    = 13201; //Insufficient number of gifts//
+    GiftToUserNotValid = 13107;   //Please select a recipient for the gift//
+    GiftToSelf      = 13108;   //Too narcissistic, the gift cannot be given to yourself//
+    ItemNumNotValid = 13109;   //Please fill in the corresponding quantity of items//
+    RewardNotExist  = 13110;   //Cannot find the corresponding reward record//
+    RewardHasGived  = 13111;   //The reward has been issued//
+    DrawTimeLimit   = 13112;   //It is not yet the window for monthly withdrawals, please wait for it to open//
+    MonthDrawLimit  = 13113;   //A withdrawal has been initiated this month, you can apply again next month!//
+    UserDrawBaned   = 13114;   //The account is restricted due to non-compliance, please contact customer service//
+    GlobalDrawClose = 13115;   //Sorry! Due to third-party restrictions, please try again later//
+    ThirdCallFail   = 13116;   //Third-party call failed//
+    
+    VersionForce   = 14001;   //There's a new version! The old version will no longer be maintained, please upgrade in time//
+    VersionLow     = 14002;   //Your current version is too low, the new version is more exciting, upgrade now//
+    TodayHearted   = 15001;   //You've already given a heart today, come back tomorrow//
+    BeBlock        = 16001;   //You have been blocked by this user, you cannot perform this operation//
+    BeBlack        = 16002;   //You have been blacklisted by this user, you cannot perform this operation//
+    NotFriend      = 16003;   //You are not mutual friends yet, you cannot perform this operation//
+    YouHaveLove    = 16004;   //You're too fickle, you already have a lover//
+    OthHaveLove    = 16005;   //You're too late, they already have a lover//
+    YouAreLove     = 16006;   //You are already lovers//
+    YouHaveSend    = 16007;   //The new couple request is waiting for the other person's response, you can't resend//
+    AcceOverdue    = 17001;    //The attire has expired//
+    PicNotValid    = 18001;    //The image content does not comply with the regulations//
+    VideoNotValid  = 18002;    //The video content does not comply with the regulations//
+    AudioNotValid  = 18003;    //The audio content does not comply with the regulations//
+    AlreadyInFamily = 19001;   //You are already in the family, you need to exit the current family to join a new one//
+    NotInFamily     = 19002;   //You are not in this family//
+    OwnerCanNotExit = 19003;   //You are the family head, you cannot exit the family//
+    FamilyNotExist  = 19004;   //The family does not exist//
+    GameNotExist    = 20001;   //The game does not exist//
+    ChanNotExist    = 20002;   //The channel does not exist//
+    GameMatchEmpty  = 20003;   //The game match empty//
+    LiveMatchEmpty  = 20004;   //The room match empty//
+    GoodsNotExist   = 21001;   //goods does not exist//
+    OrderAmountErr  = 21002;   //order Amount Error//
+    OrderNotExist   = 21003;   //order does not exist//
+    NotSamePerson   = 21004;   //personnel mismatch//
+    ReceiptNotValid = 21005;   //receipt does not valid//
+    WalletNotBind   = 21006;   //You have not yet linked a wallet//
+    WalletNotValid  = 21007;   //Wallet address is invalid//
+    WalletNotEnough = 21008;   //Insufficient balance.//
+    NotPayedYet     = 21009;   //Not payed yet.//
+    OrderIdNotValid = 21010;   //order id not valid.//
+    OrderStatusErr  = 21011;   //order status error.//
+    WalletBindInCD  = 21012;   //you can not change wallet in 90 days.//
+    TooManyErrors   = 21013;   //error count exceeds limit, please try again later//
+    NeedBindEmail   = 21014;   //you need to bind an email first.//
+    DrawPointNotEnough   = 21015;   //you need more draw point.//
+    BlockMe         = 21016;   //you don't have the right to access.//
+    AcctHasBeenBind = 21017;   //account has been binded.//
+    AcctCantUnBind  = 21018;   //account can NOT be unbinded.//
+}

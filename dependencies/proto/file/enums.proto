@@ -1,0 +1,147 @@
+syntax = "proto3";
+package haiyaa;
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+//奖励记录状态
+enum RewardStatus {
+	RS_Zero  	        = 0;    // 
+	RS_WAIT 	        = 0x01; //待领取
+    RS_RECVD            = 0x02; //已领取
+    RS_GIVED            = 0x03; //已发放
+    RS_CLOSED           = 0x04; //关闭
+}
+
+//奖励记录状态
+enum OfficeRewardType {
+	ORT_Zero  	        = 0;    // 
+	ORT_INVITE_REGISTER = 0x01; //邀请奖励
+}
+
+//点赞类型
+enum LikeType {
+    LT_NONE     = 0;    //无效参数
+    LT_GAME     = 1;    //游戏
+    LT_COMPANY  = 2;    //厂商
+    LT_ARTICLE  = 3;    //瞬间
+    LT_COMMENT  = 4;    //评论
+    LT_PEOPLE   = 5;    //作者
+    LT_VIDEO    = 6;    //视频
+    LT_MOMENT   = 7;    //评论
+}
+
+//用户设置参数
+enum UserBitSetting{
+	IS_ZERO         = 0x00;      //男/女
+    IS_GIRL      	= 0x01;      //男/女
+    IS_VIP       	= 0x02;      //会员
+	IS_DEVELOPER 	= 0x04;		 //是否是开发者
+	IS_EMAILACTIVE 	= 0x08;		 //是否邮件激活
+    IS_NEED_CHECK  	= 0x10;      //开启好友验证
+	IS_SEND_CARD   	= 0x20;      //允许发送名片
+    IS_RECOMMEND   	= 0x40;      //允许推荐
+	IS_BANNED      	= 0x80;      //系统封禁
+}
+
+enum AckBitCode{
+	BIT_ZERO 	    = 0;
+    NEEN_ACK		= 1; // 重要实时消息 
+    UN_RECONGNISE	= 2; // 暂不识别
+    NEED_RAMBLE		= 3; // 需要回存
+}
+
+enum VerifyType{
+	VT_ZERO 	    = 0;
+    ID_NAME_VERIFY	= 0x01; // 实名认证
+    FACE_VERIFY		= 0x02; // 身份认证
+    EDUCATION_VERIFY= 0x04; // 学历认证
+}
+
+//0，未注册，1已注册，2，已姓名 3已被邀请 4已选爱好 5已选推荐 正常使用
+enum AccState {
+    AS_VCCODE       = 0;   //已发注册短信未验证 
+    AS_EDITING 	    = 1;   //资料待完善
+	AS_CLOSED       = 10;  //该账号已注销
+
+    //以下都是已注册状态
+    AS_REGEISTED    = 101;  //已注册，待邀请
+    AS_INVITED      = 102;  //已经被邀请
+    AS_INTERESTD    = 103;  //兴趣已填写
+    AS_RECOMMEND    = 104;  //已推荐关注
+    AS_MEMBER       = 105;  //已正常登录，至少登录过一次
+	AS_IDNAME_VERIFY    = 111;  //已实名认证
+	AS_FACE_VERIFY  = 112;  //已身份认证
+
+	AS_VISITOR 	= 91; //CH 用不到
+	AS_IMPORT   = 93; //CH 用不到
+}
+
+
+// //0，听众，1，嘉宾 2、麦上 4、管理员
+// enum RoomRole {
+//     RR_LISTENER     = 0;  //0，听众
+//     RR_GUESTER 	   = 1;  //1，嘉宾
+//     RR_SPEAKER      = 2;  //2、麦上
+//     RR_MANAGER      = 4;  //4、管理员
+// }
+
+enum GenderType {
+	GT_Zero  	= 0; // 
+	GT_MALE 	= 1; //	男
+	GT_FEMALE	= 2; //	女
+	GT_UNKNOW   = 3; // 未知
+	GT_SECRET	= 4; // 保密
+}
+
+enum UserNeedBit {
+	UNB_Zero  	= 0; // 
+	UNB_SHOW 	= 0x01; //	普通展示类
+	UNB_SETTING	= 0x02; //	用户个性设定类
+	UNB_ACCOUNT	= 0x04; //	账户及第三方信息类
+	UNB_STATIC	= 0x08; //	账户社交统计类
+}
+
+//图片的缩略图类型
+enum ThumbType{
+	TT_Formal 			= 0;//普通图片
+	TT_Avatar 			= 1;//头像缩略图
+	TT_Cover 			= 2;//封面缩略图
+	TT_Article			= 3;//瞬间内容缩略图
+	TT_Comment			= 4;//评论缩略图
+	TT_Game			    = 5;//游戏缩略图
+	TT_Recommend		= 6;//推見缩略图
+	TT_DraftCover		= 7;//草稿封面
+	TT_ArticleCover		= 8;//瞬间详情封面
+	TT_RecomPool		= 9;//瞬间推荐瀑布流，接近全屏
+}
+
+enum HLinkType{
+	HLT_URL     = 0;//图文链接等公告;
+	HLT_Duanwei = 1;//段位升级;
+	HLT_Notice_TXT  = 2;//(文本)公告;
+	HLT_ActiveHeyid = 3;//活动送靓号
+	HLT_ActiveGuanming = 4;//活动冠名
+	HLT_RecvLoveMsg = 5;//收到表白信
+	HLT_CPActiveHeyid = 6;//最佳情侣活动送靓号
+	HLT_InvitedUser = 7;//奖励金币
+}
+
+enum SearchType{
+	SearchType_Zero = 0;
+	ST_MOMENT   = 0x01; //瞬间搜索
+	ST_GAME     = 0x02; //游戏搜索
+	ST_USER 	= 0x03; //用户搜索
+	ST_TOPIC 	= 0x04; //用户搜索
+	ST_VIDEO 	= 0x05; //用户搜索
+}
+
+//1、等级挂件 2、头像挂件 3、公屏气泡、4、进房动效、5、房间背景
+enum DecoType{
+	DecoType_Zero 	 = 0;
+	DT_WELTH_LEVEL   = 0x01; //财富等级
+	DT_HEAD_DECO     = 0x02; //头像装扮
+	DT_CHAT_BG 		 = 0x03; //聊天窗口
+	DT_JOIN_ROOM     = 0x04; //进房动效
+	DT_ROOM_BG 		 = 0x05; //房间背景
+}
+

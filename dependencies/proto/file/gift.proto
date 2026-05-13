@@ -1,0 +1,147 @@
+syntax = "proto3";
+
+package haiyaa;
+import "user.proto";
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+message GiftInfo
+{
+    int32   giftId   =1;  //礼物Id
+	string  giftName =2;  //礼物名称
+	int32   currency =3;  //货币类型 1、钻石礼物 
+	int32   kind     =4;  //效果种类 1、普通礼物【钻到礼物墙】  
+	int32   status   =5;  //状态，是否上架 1、上架 2、下架，上架，且要在St-Ed时间范围内
+	int32   price    =6;  //礼物价格
+	string  giftUrl  =8;  //资源地址
+    int32   showType =10; //特效类型, 0,1普通，2、SVG 
+    string  showUrl  =11; //特效地址
+    string  cornerUrl=12; //展示角标
+	int64   StTime   =20; //礼物开始售卖时间，如果不限期，填0
+	int64   EdTime   =21; //礼物准备下架时间，如果不限期，填2049年
+}
+message GiftInfoS{
+    repeated GiftInfo gifts = 1;
+}
+
+message GiftRecord {
+    int32  giftId   = 1; //礼物Id
+    int32  giftNum  = 2; //礼物数量
+    int64  giftTime = 3; //送礼时间
+    string desc     = 4; //描述信息，比如获得的理由
+    GiftInfo gInfo  = 5; //礼物详情
+    UserBase sender   = 6; //送礼人头像，收礼列表里有，墙里不填
+    UserBase receiver = 7; //送礼人头像，收礼列表里有，墙里不填
+}
+
+message GiftRecordS {
+    repeated GiftRecord Records  = 1; //送礼记录，或墙
+    // GiftRecord maxRecord      = 2; //最贵礼物记录，只用于送礼收礼记录中
+    // int64     lastTime        = 3; //上一次阅读的时间，判断New
+}
+
+//只用来展示爱心墙
+message HeartRecord {
+    uint64 userId    = 1; //送礼人Id
+    int32  heartNum  = 2; //礼物数量
+    int64  heartTime = 3; //最新的爱心时间
+    UserBase  sender = 6; //送礼人头像
+}
+
+message HeartRecordS {
+    repeated HeartRecord Records  = 1; //爱心墙
+    int64     lastTime = 2; //上一次阅读的时间，判断New
+}
+
+//奖励记录状态
+enum SendType {
+	ST_Zero  	        = 0;    //正常送礼 
+	ST_Normal 	        = 0x01; //正常送礼
+    ST_Random           = 0x02; //随机送礼
+}
+
+//A 给 B，C, D  赠送 XX礼物, YY个，展示特效为show  
+message SendGiftReq {
+    uint64  roomId         = 1;   //如果是房间，则填写，主页送礼，不写
+    repeated uint64 toUids = 2;   //收礼人列表
+    int32  giftId          = 3;   //礼物Id
+    int32  giftNum         = 4;   //礼物数量
+}
+
+message SendGift {
+    uint64  roomId          = 1;   //如果是房间，则填写，主页送礼，不写
+    repeated uint64 toUids  = 2;   //收礼人列表
+    int32  giftId           = 3;   //礼物Id
+    int32  giftNum          = 4;   //礼物数量
+    GiftInfo gInfo          = 5;   //礼物详情，送礼时不填
+	UserBase  sender        = 10;  //送礼人头像
+    repeated UserBase recvs = 11;  //收礼人头像，人送
+}
+
+//背包物品
+message BagItem
+{
+    int32   itemId   =1;  //物品Id
+    int32   itemNum  =2;  //个数数量，XX天，XX个
+	string  itemName =3;  //物品名称
+	string  itemUrl  =4;  //资源地址
+    int32   itemPrice = 5; //物品价格
+    int32   index = 6; //物品次序[0-7]，比如转盘格子
+}
+
+message BagItemS{
+    repeated BagItem items = 1;
+    int32    endAt   = 2; //转盘终点[0-7]
+}
+
+//奖励中心记录
+message RewardRecord
+{
+    string  recordId =1;  //记录Id
+    uint64  userId   =2;  
+    int32   itemId   =3;  //物品Id
+    int32   itemNum  =4;  //个数数量
+    string  From     =5;  //来源文案
+    int32   status   =6;  //当前状态，1未领 2已领
+    int64   ctTime   =7;  //获取时间
+	string  itemName =8;  //物品名称
+	string  itemUrl  =9;  //资源地址
+}
+
+message RewardRecordS{
+    repeated RewardRecord records = 1;
+}
+
+message LoveInfo {
+	uint64 userId 	= 1; //用户Id
+	uint64 loveId 	= 2; //情侣Id
+	int64  lettleId = 3; //信件Id, 分手后只剩信件信息
+
+	string necklace = 5; //项链
+	int32  loveVal 	= 6; //情侣值
+	UserBase uinfo  = 7; //情侣头像信息
+
+	int64  loveTime = 11; //成为情侣的时间
+	int64  ctTime   = 12; //记录创建时间
+	int64  upTime   = 13; //记录创建时间
+}
+
+message LoveLettle {
+    uint64 userId 	= 1; //用户Id
+	uint64 loveId 	= 2; //情侣Id
+    int64  lettleId = 3; //信件Id
+
+	string loveMsg    = 5; //情侣信
+	GiftInfo giftInfo = 6; //礼物Id
+	int32  status     = 7; //当前状态
+	UserBase userInfo    = 8; //情侣头像信息
+    UserBase loveInfo    = 9; //情侣头像信息
+
+	int64  ctTime   = 12; //记录创建时间
+	int64  upTime   = 13; //记录创建时间
+}
+
+message LoveLettleS {
+    repeated LoveLettle lettles = 1;
+}
+

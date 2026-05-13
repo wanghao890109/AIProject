@@ -1,0 +1,388 @@
+syntax = "proto3";
+package haiyaa;
+import "game.proto";
+import "user.proto";
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+//房间摘要
+message RoomItem {
+	uint64   roomId    = 1;    // 房间Id
+	string   roomName  = 2;    // 名称
+	int32    liveChan  = 3;    // 直播频道Id
+	string   chanName  = 4;    // 频道名
+	string   coverUrl  = 5;    // 背景  
+	int32    memCount  = 6;    // 成员数量
+	RoomUser owner     = 7;	   //   
+	int32    swLock    = 8;    // 锁房状态，0未锁，1锁房
+}
+message RoomItemS {
+	repeated RoomItem rooms  = 1; //推荐房间列表
+}
+
+//房间设置字符串类的设置，以#开头，比如设置密码为123，则传密码"#123", 取消密码，传"#", 如果是""表示无需操作
+message RoomBase {
+	uint64   roomId    = 1;    // 房间Id = OwnerUid
+	string   roomName  = 2;    // 名称
+	int32    roomMode  = 3;    // 房间模式 enum RoomMode {1 直播, 2游戏}
+	int32    gameChan  = 4;    // 游戏频道Id
+	int32    liveChan  = 5;    // 直播频道Id
+	string   chanName  = 6;    // 频道名
+	string   bgurl     = 7;    // 背景  
+	int32    microMode = 8;    // 麦位模式, 麦位数量
+	string   topic     = 21;   // 主题
+	string   coverurl  = 22;   // 封面  
+	string   notice    = 24;   // 公告  
+	string   passwd    = 25;   // 锁密码 
+	string   welcome   = 26;   // 欢迎语
+	int32    canTalk   = 31;   // 公屏 default : 1, 开 
+	int32    swLock    = 33;   // 没用到。忽略。加锁 0 表示默认关 1 表示开
+	int64    ctTime    = 41;   // 创建时间
+	int64    upTime    = 42;   // 修改时间
+}
+
+message RoomInfo {
+	RoomBase   rbase    = 1; //房间基础信息
+	RoomMicroS micros   = 2; //房间麦位信息
+	RoomGame   game     = 3; //房间游戏
+	RoomStatic static   = 4; //房间统计
+	RoomManager manager = 5; //管理员列表
+}
+message RoomInfoS {
+	repeated RoomInfo rooms = 1;
+}
+
+// 房间中的统计数据
+message RoomStatic {
+	uint64  roomId   = 1; // 房间Id
+	int32   curNum   = 2; // 当前人数
+	int32   curHot   = 3; // 当前热度
+	int32	hotRank  = 4; // 热度排名
+}
+
+message RoomManager {
+	repeated UserBase ubase = 1;
+}
+
+// 房间中的麦位实现
+message RoomMicro { 
+	uint64  roomId   = 1;   // 房间Id
+	uint64  userId   = 2;   // 用户id
+	int32   microId  = 3;   // 麦位Id, 0-MaxMicro表示在麦上
+	int32   microState = 4; // 麦克状态, 0 无状态   1 开麦   2 闭麦静音 3 封麦 MicroState
+	int32   roomRole = 5;   // 房间角色, 0 普通成员 1 麦上   2 管理员   3 房主
+	UserBase user    = 6;   // 用户头像，未必有, 如果是麦位状态变化，也忽略麦上人的因素
+}
+message RoomMicroS {
+	uint64   roomId   = 1; // 房间Id
+	repeated RoomMicro micros = 2;
+	int64 serialno  = 3; //麦位序列号
+}
+
+message RoomBg
+{
+	string  url        = 1;//图片地址
+	string  name       = 2;//如果图片有名字
+}
+
+//房间状态
+message RoomState {
+	uint64   roomId    = 1; // 房间Id
+	int32    roomMode  = 2; // 房间模式
+	int32    gameChan  = 3; // 游戏频道
+	int32    liveChan  = 4; // 直播频道
+	int32    gamerNum  = 5; // 游戏人数
+}
+
+//房间模式
+enum RoomMode {
+    RM_UNDEFINE     = 0;  //未初始化，默认为普通状态
+	RM_LIVE	    	= 1;  //房间直播模式
+	RM_GAME      	= 2;  //房间游戏模式
+}
+enum MicroState {
+    MS_UNDEFINE     = 0;  //未初始化，默认为开麦状态
+	MS_OPENING 	    = 1;  //麦状态，开麦
+	MS_SLIENCE      = 2;  //麦状态，静音，关闭
+	MS_CLOSED       = 3;  //麦状态，封麦
+}
+
+//麦位模式
+enum MicroMode {
+    MM_UNDEFINE     = 0;  //未初始化，默认为普通状态
+	MM_MICRO1	    = 1;  //房间单麦模式, 1个主播麦
+	MM_MICRO2      	= 2;  //房间双麦模式, 2个麦
+	MM_MICRO4      	= 4;  //房间4麦模式, 1+4 = 5个麦
+	MM_MICRO8      	= 8;  //房间8麦模式, 1+8 = 9个麦
+	MM_MICRO16      = 16;  //房间16麦模式, 暂未用到
+}
+
+enum RoomRole {
+	RR_VISITER = 0; //听众
+	RR_SPEAKER = 1; //麦上
+	RR_MANAGER = 2; //管理员
+	RR_OWNER   = 3; //房主
+}
+
+message RoomUid {
+	uint64 roomId   = 1; // 房间Id
+	uint64 userId   = 2; // UserId
+}
+
+message RoomUidS {
+	uint64   roomId   = 1; // 房间Id
+	repeated uint64 userIds = 2;
+}
+
+// 用户尝试进入加锁的房间
+message JoinRoom {
+	uint64  roomId  = 1;  // 房间Id
+	string  passwd  = 2;  // 锁密码
+}
+
+message RoomUser {
+	uint64  roomId   = 1;   // 房间Id
+	uint64  userId   = 2;   // 用户id
+	int32   microId  = 3;   // 麦位Id, 0-MaxMicro 表示在麦上
+	int32   roomRole = 5;   // 房间角色, Enum RoomRole
+	UserBase user    = 6;   // 用户头像，未必有, 如果是麦位状态变化，也忽略麦上人的因素
+}
+message RoomUserS {
+	int32    total  = 1;
+	int32    mgrNum = 2;
+	repeated RoomUser users = 3;
+}
+
+//只有现房间，表明是进入，只有原房间，说明是退出，有两个，说明是跳房
+message RoomInOut {
+	uint64  userId      = 1; // 用户id
+	uint64  oldRoomId   = 2; // 原房间Id
+	uint64  newRoomId   = 3; // 现房间Id
+}
+
+// 房间中的麦上表情
+message MicroFace {
+	uint64  roomId   = 1; // 房间Id
+	uint64  userId   = 2; // 用户id
+	int32   faceId   = 3; // 表情id
+	int32   micoId   = 4; // 麦位Id
+}
+
+//导致变化的原因
+enum MicroGameType {
+	MGT_NONE 	 = 0;
+	MGT_YING_BI  = 1;   //硬币 [0-2)，
+	MGT_CAI_QUAN = 2;   //猜拳 [0-3)，
+	MGT_TOU_ZI   = 3;   //骰子 [0-6)，
+	MGT_MAI_XU   = 4;   //麦序 [0-8)， 大麦个数
+	MGT_LAO_HU   = 5;   //老虎 [0-999]
+	MGT_RAND_IN  = 6;   //区间随机 [a-b]
+}
+
+// 房间中的麦上表情
+message MicroGame {
+	uint64  roomId   = 1; // 房间Id
+	uint64  userId   = 2; // 用户id
+	int32   gameId   = 3; // 表情id
+	int32	micoId   = 5; // MicroId
+	int32   result   = 6; // 结果
+	UserBase user    = 7; // 用户头像
+	int32   minRand  = 8; // 自定义随机区间
+	int32   maxRand  = 9; // 自定义随机区间
+}
+
+// 房间中的频道列表
+message RoomChan {
+	int32    chanId   = 1; // 频道Id，标签Id
+	string   chanName = 2; // 频道名
+	string   chanIcon = 3; // Icon地址
+}
+message RoomChanS {
+	repeated RoomChan chans = 1;
+	int32    defaultChan    = 2; //Room 优先显示的ChannelId
+}
+
+// UserQuery
+message RoomCreatePage {
+	repeated RoomChan chans = 1;
+}
+
+// 房间中的频道列表
+message RoomCreate {
+	int32    liveChan = 1; // 必填
+	int32    gameChan = 2; // 选填
+	string   roomName = 3; // 必填，房名
+	string   roomPwd  = 4; // 选填，房间密码，无则不填
+}
+
+// 房间访问记录, 进房记录
+message RoomVisit {
+	uint64  userId   = 1;  // 用户id
+	uint64  roomId   = 2;  // 当前所在房间，是否在房
+	int64   visitTime = 3; // 访问时间
+	UserBase user    = 4;  // 用户头像，未必有, 如果是麦位状态变化，也忽略麦上人的因素
+}
+
+message RoomVisitS {
+	uint64   roomId   		  = 1; // 房间Id
+	repeated RoomVisit visits = 2;
+}
+
+// message CountDown {
+// 	int32    sceneId   	  = 1; // 场景Id
+// 	int32    countNum     = 2; // 倒计时数字
+// 	string   tips         = 3; // 倒计时提示
+// }
+
+// message CreateRoom {
+// 	string   topic          = 1;  // 房间主题
+// 	int32    chanId 	    = 2;  // 频道Id，房间所属频道
+// 	repeated uint64 uids    = 3;  // 如果是私房的话需要指定邀请列表
+// }
+
+// //导致变化的原因
+enum MicroChangeType {
+	MCT_NONE = 0;
+	MCT_USER_ON_MIC  = 1;   //用户上麦，刷新两个麦位的 状态和动作
+	MCT_USER_OFF_MIC = 2;  //用户下麦，或管理员踢麦，刷新cur的状态和动作
+	MCT_MGR_SET_MIC  = 3;   //管理员设置，刷新cur的状态和动作
+	MCT_INVITE_ON_MIC = 4; //邀请上麦，管理员抱麦，刷新 新麦的状态
+}
+
+message MicroChange {
+	int32 ctype 	= 1; //变化类型
+	int64 serialno  = 2; //麦位序列号
+	RoomMicro old   = 3; //变化前一麦位信息，ChangeOne，不刷新area, seat 可能为0， 表示没有原位置
+	RoomMicro cur   = 4; //变化后一麦位信息，一定有area, seat, state 不一定有人，如果是封闭麦的情况，上麦才有人
+	RoomMicro oper  = 5; //操作者信息
+	repeated RoomMicro micros = 6; //操作后全新的麦位信息，端上刷新即可
+}
+
+message RoomChange {
+	RoomBase   rbase    = 1; //房间基础信息
+	RoomMicroS micros   = 2; //房间麦位信息
+}
+
+//操控游戏
+message MgrOperGame {
+	int32 optype 	= 1; //操作类型 GameOperType
+	int64 roomId    = 2; //操作对应的房间
+	int64 gameId    = 3; //对应的游戏 
+	//string opdesc = 4; //操作文案
+	//UserBase oper = 5; //操作者信息
+}
+
+//在房间内被操作
+message MgrOperOnMe {
+	int32 optype 	= 1; //操作类型 RoomOperType
+	string opdesc   = 2; //操作文案
+	UserBase oper   = 5; //操作者信息
+}
+
+//被操作的类型
+enum RoomOperType {
+	OT_UNDEFINE       = 0;    //未初始化，默认为开麦状态
+	OT_MIC_OPENING 	  = 1;    //麦状态，开麦
+	OT_MIC_SLIENCE    = 2;    //麦状态，静音，关闭
+	OT_MIC_CLOSED     = 3;    //麦状态，封麦
+	OT_MIC_INVITED    = 6;    //被邀请上麦
+	OT_MIC_KICKED     = 7;    //被踢下麦
+	OT_ROOM_KICKED    = 8;    //被踢出房间
+	OT_CHAT_BANNED    = 11;   //公屏禁言
+	OT_CHAT_ALLOWED   = 12;   //允许公屏
+	OT_MANAGER_SET    = 16;   //被设为管理员
+	OT_MANAGER_UNSET  = 17;   //被取消管理员
+}
+
+//被操作的类型
+enum GameOperType {
+	OT_UNKNOW       = 0;    //未初始化
+	OT_LUNCH_GAME 	= 1;    //拉起游戏，首次拉起
+	OT_START_GAME   = 2;    //开始游戏，开始一局游戏
+	OT_END_GAME     = 3;    //结束游戏，结束当局游戏
+	OT_CLOSE_GAME   = 4;    //关闭游戏，回到直播模式
+}
+
+//匹配游戏/直播房
+message RoomMatch {
+	int32    liveChan = 1; // 选填，匹配一个直播频道房
+	int32    gameChan = 2; // 选填，匹配一个游戏频道房
+}
+
+//导致变化的原因
+// enum ROOM_MODE {
+// 	RM_ZERO    = 0;		// 普通房
+// 	RM_NORMAL  = 1;		// 普通房
+// 	RM_FRIEND  = 2;   	// 交友方
+// }
+
+// 导致变化的原因
+// enum PkStatus {
+// 	PS_NONE 	 = 0;   //已同意
+// 	PS_REJECT    = 1;   //已拒绝
+// 	PS_AGREE     = 2;   //已同意
+// 	PS_READY     = 3;   //准备中，
+// 	PS_PROGRESS  = 4;   //进行中，可投降
+// 	PS_PUNISH    = 5;   //惩罚中，可手动关闭
+// 	PS_END       = 8;   //已结束
+// }
+
+// //房间天梯
+// message PkInvite {
+// 	int64   	pkId    = 1; //发起时生成一个pkId
+// 	RoomSummary rsummary= 2; //房间基础信息
+// 	int32  		score 	= 3; //房间天梯
+// 	UserBase   	owner   = 4; //房主信息
+// 	UserBase   	inviter = 5; //邀请者信息
+// 	int32   	status  = 6; //PS_REJECT状态，拒绝或同一点这里
+// }
+
+// //Pk贡献者
+// message PkAssist {
+// 	UserBase user   = 1;  // user
+// 	int32   coin    = 2;  // 贡献金币
+// }
+
+//PK 每人一票，算PK，一钻算一票，3个换人名额，固定时长10分钟，自动进入战斗背景
+//加入道具玩法，PK上的人，PK道具，加成Buff，开启战斗效果 特效，1000钻 战鼓+战斗背景+音乐，持续到PK结束，1000钻，所有麦上人员开启战斗头盔+广播，1000钻，所有PK积分双倍加成
+//房间里的任何人，购买给房间的战斗特效
+// message RoomPk {
+// 	int64   pkId        = 1;	// 发起时生成一个pkId
+// 	uint64  roomId    	= 2;  	// roomId
+// 	int32   coin      	= 3;  	// 本局积累的金币 = 本局分数
+// 	UserBase pkUser		= 6;    // 正在PK的人，或发起者
+// 	repeated PkAssist assists = 7;  // 贡献者，按贡献排序
+	
+// 	//换人情况，1个打3个，最多3个换人名额, 额外调用PK，下PK，状态变更为逃离，逃离10S即自动认输
+// 	int32   exchTimes   = 11;    // 当前换人次数, 最多为3
+
+// 	//天梯分暂时不用
+// 	int32   curScore    = 16;    // 当前房间分数 = 天梯分数，PK进行中展示
+// 	int32   difScore    = 17;    // PK结束时的天梯分变化，展示结果时展示
+// 	int32   newScore    = 18;    // 最新的天梯分数，展示结果时展示\
+// }
+
+// // PK 带着状态和进度，PK结束后入库， 生存期1小时
+// // 房间PK结束后入库，10分钟一局, PK准备阶段30S，PK开始固定10分钟，PK惩罚阶段90S
+// message PkInfo {
+// 	int64   pkId       = 1;  // PkId
+// 	PkInfo  redRoom    = 2;  // 发起方 红方，roomId
+// 	PkInfo  blueRoom   = 3;  // 接收方 蓝方，roomId
+// 	int64   winner     = 4;  // 胜利者，0 表示平局
+// 	int32   status     = 5;  // PS_REJECT状态，拒绝或同一点这里
+// 	int64   stTime     = 11; // 开始时间
+// 	int64   edTime     = 12; // 结束时间
+// }
+
+
+
+// //包含所有开启的房间, 锁房的房间,也在, 只是显示房间上锁而已
+// message RoomRank {
+// 	uint64   roomId    = 1; // 房间Id
+// 	int32    roomMode  = 2; // 房间模式
+// 	int32    gameChan  = 3; // 游戏频道
+// 	int32    liveChan  = 4; // 直播频道
+// 	int32    gamerNum  = 5; // 游戏人数
+// 	//int32    roomHot = 6; // 当前热度
+// }
+

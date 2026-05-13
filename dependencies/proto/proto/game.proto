@@ -1,0 +1,76 @@
+syntax = "proto3";
+package haiyaa;
+import "user.proto";
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+//for cli
+message GameItem {
+	RoomGame RmGame     = 1;
+	uint64   roomId     = 2;      // 房间ID
+	string   roomName   = 3;  	  // 房间名
+	repeated UserBase Users	= 4;  // 准备中头像
+	int32    swLock     = 8;      // 锁房状态，0未锁，1锁房
+}
+message GameItemS {
+	repeated GameItem games = 1;
+}
+
+//for svr
+message RoomGame {
+	int64    gameId   	= 1;  // 游戏Id，标签Id
+	string   gameName 	= 2;  // 频道名
+	int32    gameChan   = 3;  // 频道ID
+	string   gameIcon 	= 4;  // Icon地址
+    string 	 gameImage  = 5;  // 长图
+	string   gameMode   = 6;  // 游戏模式
+	int32    gameState  = 7;  // GameState 当前游戏状态，开启，开始，结束 
+	int32    gamerMax	= 8;  // 最大参与游戏人数
+	int32    gamerCur	= 9;  // 当前参与人数
+}
+
+message RoomGameS {
+	repeated RoomGame games = 1;
+}
+
+message GamerState {
+	uint64 RoomId = 1;
+	uint64 UserId = 2;
+	int32  State  = 3;  //GS_READY 表示准备，其他表示未准备 OR GS_NONE
+}
+
+// 游戏频道频道列表
+message GameChan {
+	int32    chanId   = 1; // 频道Id，标签Id
+	string   chanName = 2; // 频道名
+	string   chanIcon = 3; // Icon地址
+	string   gameMode = 5; // 游戏模式
+	int32    gamerMax = 7; // 最大参与游戏人数
+}
+message GameChanS {
+	repeated GameChan chans = 1;
+	int32    defaultChan    = 2; //Game 优先显示的ChannelId
+}
+
+enum GameState {
+    GS_NONE     = 0;    //无效参数
+    GS_START    = 1;    //开启，等待队友准备
+	GS_READY    = 2;    //准备，等待房主开启
+    GS_GAMING   = 3;    //开始，进入游戏
+    GS_END      = 4;    //结束，等待房主重开
+	GS_CLOSE    = 5;
+}
+
+// 游戏频道频道列表
+message GameSUD {
+	string   appId   = 1; 	// 
+	string   appKey  = 2;   // 
+	string   sudCode = 3; 	//
+	int32    sandbox = 4;   // 1表示测试环境， 0表示正式环境
+}
+
+// 游戏频道频道列表
+message TxSig {
+	string   appId = 1;
+	string   txSig = 2; 	//
+}

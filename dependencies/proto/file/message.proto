@@ -1,0 +1,164 @@
+syntax = "proto3";
+package haiyaa;
+
+import "public.proto";
+import "user.proto";
+
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+enum NoticeMsgType{
+
+	NM_TYPE_ZERO    = 0;
+	NM_NEW_TIPS     = 1;  //外部小红点，表示总的新消息数
+	NM_NEW_SYSTEM   = 11; //系统消息类
+	NM_NEW_FRIEND   = 12; //新的好友申请
+	NM_NEW_LOVER    = 13; //新的情侣申请
+	NM_NEW_CHAT 	= 21; //好友聊天类，私聊消息
+	NM_NEW_FANS	    = 22; //新增关注【主页】
+	NM_NEW_LOVE     = 23; //新增爱心【主页】，时间排序，2天内的，加New标签
+	NM_NEW_BOTTLE   = 24; //新增漂流瓶类消息，漂流瓶后也按照Uid来存储。
+	NM_NEW_PARISE   = 31; //新增赞【动态】
+	NM_NEW_COMMENT  = 32; //新增评论和回复【动态】
+	NM_NEW_GIFT     = 41; //新增礼物
+}
+
+//服务内部使用
+enum MsgBit{
+	MBIT_ZERO   = 0;
+	MBIT_SEND 	= 1;  //发出
+	MBIT_STORE 	= 2;  //存储
+}
+
+//具体有产品给出
+enum SysMsgType{
+	SMT_ZERO     		= 0;
+	SMT_POST_ACCEPT 	= 1;  //通过
+	SMT_POST_REJECT 	= 2;  //瞬间被拒
+	SMT_ACCESS_BAN 		= 3;  //权限被关闭通知
+}
+
+message UserMsgQuery {
+
+	uint64      userId           	= 1;    //
+	uint64      fromUid    			= 2;    //来自用户, 不填表示所有
+	uint32      type		        = 3;	//查询类型
+	uint32      parm			    = 4;	//查询参数，必要时填写，如 UserInfoPart
+	int32    	skip				= 5;	//查询参数，必要时填, 如果查询返回是列表类，这里表示分页信息
+	int32       limit				= 6;	//查询参数，必要时填写
+}
+
+message MsgTypeNum {
+
+	NoticeMsgType msgType = 1;  //消息类型
+    int32 msgNum = 2; //新消息数量
+}
+
+message MsgTypeNumS {
+	repeated MsgTypeNum tnums = 1; //消息类型
+}
+
+message FromId2Id {
+	uint64      fromId           	= 1;    //从这个消息开始
+	uint64      toId    			= 2;    //到这个消息结束 [101,201] 已收到
+}
+
+//拉取某账号FromTime时间之前的MaxNum条来自 X群组. Y人的消息，XY不填表示所有
+//查询新消息，还是拉历史消息
+message UserStdMsg {
+
+	//id
+	int64  msgId         = 1; //消息Id
+	int64  msgTime       = 2; //消息时间 
+	int64  msgBit        = 3; //后端属性参数，是否需要存储，是否需要发送
+	int64  transId       = 4; //客户端用，原样回去
+
+	//from who
+	uint64 fromUid       = 6; //发送者Uid
+	UserBase fromUInfo   = 7; //发送者UserInfo
+	string fromDev       = 8; //如果是用户设备间消息，非必须
+	
+	//to who
+	uint64 toBottleId    = 9;  //漂流瓶消息 = ToUid
+	uint64 toRoomId      = 10; //房间消息 = FromRoomId
+	uint64 toUid         = 11; //接受者Uid
+	int32  toDevType	 = 12; //接受者设备类型，非必须
+	string toDevId       = 13; //接受者设备Id，非必须
+
+	//to fliter
+	repeated uint64 toUids = 14; //如果是多人，则使用这个
+	int32  toAccType      = 15; //如果有，则过滤, Device, Face, 
+	int32  toNetType      = 16; //如果有，则过滤,
+    int32  toCliVer       = 17; //如果有，则过滤,
+	//repeated UserInfo atUInfos = 18; //At
+	
+	//what
+	uint32  msgCat       = 21; //转到用户时候的Cmd
+	uint32  msgCmd       = 22; //转到用户时候的Cmd
+	int32   msgType		 = 23; //消息类型  对应 enum NoticeMsgType， 表示是广播，还是私信，或者漂流瓶，还是群
+    bytes   msgBody      = 24; //具体的消息实体，Notice不考虑，各业务处理
+	TalkMsg msgPbBody    = 25; //具体的消息实体，Notice不考虑，各业务处理
+	
+	//why
+	string  title        = 26; //游戏，瞬间，评论的Title
+	string  note         = 27; //备注或说明
+}
+
+message UserStdMsgS {
+    repeated UserStdMsg  msgs    = 1;    //消息组
+}
+
+enum TalkType 
+{
+	TT_None            = 0;	//没有类型;
+	TT_Text            = 1;
+	TT_Photo           = 2;
+	TT_Audience        = 3;
+	TT_Video           = 4;
+	TT_File            = 5;
+	TT_Voice           = 6;  // 实时语音;
+	TT_Topic           = 7;  // 话题名片;
+	TT_Hyperlink       = 8;  // 图文链接
+	TT_OMJson          = 9;  // om回复用户申述;
+	TT_HyperlinkShare  = 10; // 图文链接
+	TT_Tip             = 11; // 提示
+	TT_Check           = 12; // 选择
+	TT_LinkText        = 13; // 链接文本
+	TT_RedPackage      = 14; // 红包类型
+}
+
+message ChatInfo{
+
+	uint64	fromUid 	= 0x01;			// 发言人
+	uint64  toUid       = 0x02;
+	repeated uint64 toIds  = 0x03;		// 接收人列表
+	uint32	msgTime		= 0x04;			// 发言时间	
+	uint64 	msgId  		= 0x05;			// 消息Id
+	TalkMsg	msg	 		= 0x06;			// 发言内容
+}
+
+message TalkMsg 
+{
+	int64              type       = 1;  // 动态类型;不能为None; TalkType的枚举
+	string             text       = 2;  // 文字
+	PhotoInfo          photo      = 3;  // 图片
+	AudioInfo          audio      = 4;  // 语音
+	VideoInfo          video      = 5;  // 视频
+	FileInfo           file       = 6;  // 文件
+	HyperlinkInfo      hyperlink  = 7;  // 图文链接
+	TipInfo            tip        = 8;  // 提示
+	LinkText           linkText   = 9;  // 链接文本
+}
+
+message RelayInfo{
+	uint64	fromUid 	= 0x01;	// 发言人
+	uint32	toWhere		= 0x02;	// 发言地点，群id, 频道id
+	repeated uint64 	toUids  = 0x03;	// 接收人列表
+	uint32	msgTime		= 0x04;	// 发言时间	
+	uint32	msgKind		= 0x06;	// 消息类型
+	uint32	msgCmd	 	= 0x07;	// 消息对应的命令字，如果是离线，则根据该命令字判断消息的格式，比如加好友申请，content则是一个Proto	
+	uint32	msgBit	 	= 0x08;	// 消息二进制，是否需要存离线，拉取后是否删除
+	uint32	msgSize	 	= 0x09;	// Content 的大小
+	bytes	content	 	= 0x0A;	// 消息内容	 
+}
+

@@ -1,0 +1,112 @@
+syntax = "proto3";
+package haiyaa;
+
+import "public.proto";
+import "user.proto";
+
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+//状态越小，越不合规，需要隐藏
+enum MomentStatus{
+    MTS_Zero  	 = 0;  // 
+
+	MS_MgrDeny    = 1;  // 人工审核未通过，明确的走了删除按钮
+	MS_NotChoose  = 2;  // 自动审核未通过，未被挑选
+	MS_UserDelete = 3;  // 用户自行删除
+	MS_ForChoose  = 4;  // 待挑选，库里的默认状态
+	MS_NeedImport = 7;  // 手动推荐，待导入
+
+	MS_Show2Pri   = 10;  //私人可见，大于这个值的，私人可见
+	MS_Audit2Pri  = 11;  //待审核，私人可见，发布时的默认状态，进入到 Recom 或 MgrDeny
+	MS_NotPass    = 12;  //已审核，未通过
+	
+	MS_Show2Pub   = 20;  //所有人可见
+	MS_Audit2Pub  = 21;  //待审核，所有人可见，发布时的默认状态, 进入到 MS_Publish 或 MgrDeny
+	MS_Publish    = 22;  //已审核通过, 可展示
+	MS_Recom      = 23;  //已审核通过, 高质量, 是否高质量，要从玩家互动情况来分析，推荐算法待引入
+}
+
+message MomentInfo {
+	uint64      MomentId           = 1;//客户端不传
+	uint64      UserId             = 2;//发帖用户id
+	int32       Status             = 5;//moment状态 
+	string      Title              = 6;//标题
+	string      Content            = 7;//内容
+	string      Area               = 8; //区域
+	repeated 	PhotoInfo Photos   = 9; //图片信息
+	VideoInfo   Video              = 10;//视频信息
+	int32       TopIndex           = 11;//置顶index
+	int32       ReadNum            = 12;//阅读数量
+	int32       ComNum             = 13;//评论数量
+	int32       LikeNum            = 14;//点赞数量
+	int32       ShareNum           = 15;//分享数量
+	int64       PubTime            = 17;//动态发布时间，如果是拉取最近，或个人主页，展示这个时间信息
+	int64       RecomTime          = 18;//动态推荐时间，如果是拉取推荐，展示这个时间
+	bool        IsLike			   = 20;//是否点过赞
+    UserBase    Publisher          = 21;//发布者信息
+	uint64      roomId             = 22;//发布者当前所在的房间
+}
+message MomentInfoS{
+    repeated MomentInfo Moments = 1;    //  帖子
+}
+message CommentInfo{
+    uint64 MomentId         = 1;    // 必填。 瞬间Id
+    uint64 CommentId        = 2;    // 不填  【注意：客户端不用传！！！！！】
+    uint64 ToCommentId      = 3;    // 选填  【如果是回复给哪条评论，要填。】 0，表示瞬间，非0，表示回复的回复
+	uint64 UserId           = 4;    // 必填  发布者Id
+    uint64 ToUserId         = 5;    // 不填  回复给Id   【可以不用传】
+	uint64 RpyUserId        = 7;    // 不填  回复
+	string Content          = 6;    // 必填  内容文本 
+    int32  ComNum           = 8;    // 不填  评论数量
+    int32  LikeNum          = 9;    // 不填  点赞数量
+    int64  CtTime           = 15;   // 不填  创建时间
+    int64  UpTime           = 16;   // 不填  更新时间
+    UserBase Publisher      = 21;   // 不填  发布者信息
+	UserBase RpyUser        = 22;   // 不填  被回复者信息
+}
+message CommentInfoS{
+    repeated CommentInfo Comments = 1;    //  评论
+}
+
+//我的留言+1+1+1，留言不用看
+//回复的回复，作为统治拉出来
+//回复的回复
+message MomentMsg{
+	MomentInfo  moment  = 1; // 所在的帖子
+	CommentInfo mycom  	= 2; // 我的留言, 可能有，如果是回复的话
+	CommentInfo rpyme 	= 3; // 给我的留言或回复我的留言
+}
+
+message MomentMsgS{
+	repeated MomentMsg Msgs = 1;
+}
+
+//留言板消息
+message BbsMsg{
+	string 	MsgId 		= 1;
+	uint64	UserId 		= 2;
+	uint64  FromUid	 	= 3;
+	int32 	StarNum 	= 4;
+	string 	Text 		= 5;
+	int32 	ReplyNum = 6;
+	UserBase User = 7;
+	
+	string ToMsgId = 11;
+	string RpyMsgId  =12;
+	uint64 RpyUid = 13;
+	string RpyName = 14;
+	uint32 RpyDel = 15;
+
+	int64 CtTime = 16;
+	int64 UpTime = 17;
+
+	bool IsTop  = 21;
+	bool IsHot  = 22;
+	bool Stared = 23;
+	uint64 RoomId = 24; 
+}
+
+message BbsMsgS{
+	repeated BbsMsg msgs = 1;
+}

@@ -1,0 +1,103 @@
+syntax = "proto3";
+package haiyaa;
+import "user.proto";
+import "room.proto";
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+// OrderEvent
+message FuzzySearch {
+	repeated UserInfo Users = 1; //用户
+	repeated RoomInfo Rooms = 2; //房间
+}
+
+// OrderEvent
+message EventInfo {
+	uint64   eventId   = 1;  // EventId，后端生成
+	string   eventName = 2;  // 事件名称
+	string   topic     = 3;  // 事件主题
+	string   descrip   = 4;  // 事件描述
+	int32    privacy   = 5;	 // 隐私类型，不填，跟房间对应。 0 未设置 1、默认公开 2、社交 3、私人
+	UserBase creater   = 6;  //创建者信息
+	repeated UserBase cohost = 7; //Co-Host or Guest
+	int64    eventTime = 8;  // 事件时间
+}
+
+message EventInfoS {
+	repeated EventInfo events = 1;
+}
+
+// DataCenter Report, 汇报事件（时间地点任务时间原因结果），并非详情
+message DCReport {
+	uint64   WhoA  	  = 1;  // 人物
+	uint64   WhoB  	  = 2;  // 人物
+	int32    What  	  = 3;  // 事件
+	int32    HowMany  = 4;  // 数量
+	int64    When     = 5;  // 时间
+	uint64   Where    = 6;	// 地点
+	string   Why      = 7;  // 原因
+	int32    Result   = 8;  // 结果
+}
+
+enum ReportType {
+	normal     = 0; // 正常
+	nicksign   = 1; // 昵称/个性签名违规
+	gallery    = 2; // 图片涉黄/恐怖/暴力
+	audio      = 3; // 声音资料色情低俗
+	cheat      = 4; // 存在欺诈行为
+	unfriendly = 5; // 辱骂/嘲讽/不友善
+	other      = 7; // 其他
+}
+
+message UserReport {
+    uint64  userId   = 1; // 被举报人
+	int32   rpttype  = 2; // 举报类型
+    string  reason   = 3; // 举报描述
+	UserBase fuser   = 4; // 举报人的头像
+	UserBase touser  = 5; // 被举报人的头像
+	int64  rpttime   = 6; // 反馈时间
+	string logUrl    = 7; // 日志地址
+}
+
+message UserReportS {
+	repeated UserReport reports = 1;
+}
+
+message UserFeedback {
+    string content  = 1; // 反馈内容,建议或意见
+	string imgurl   = 2; // 反馈的图片
+	UserBase user   = 3; // 反馈人的头像
+	int64  ctTime   = 4; // 反馈时间
+}
+
+message UserFeedbackS {
+	repeated UserFeedback feeds = 1;
+}
+
+enum RankType {
+    RT_ZERO   = 0;
+    RT_WELTH  = 1;
+    RT_CHARM  = 2;
+}
+
+enum RankPeriod {
+    RP_ZERO   = 0;
+    RP_DAILY  = 1;
+    RP_WEEKLY = 2;
+	RP_MONTH  = 3;
+    RP_TOTAL  = 4;
+}
+
+message RankUser {
+	int32    rankId   = 1; // 排名id
+	uint64   userId   = 2; // 用户id
+	int32    rankVal  = 3; // 榜单值
+	int32    diffVal  = 4; // 距离上一名或距离上榜差值
+	uint64   roomId   = 5; // 当前所在的房间Id, 我关注的人也要加是否在房间中
+	UserBase user     = 6; // 用户头像，未必有, 如果是麦位状态变化，也忽略麦上人的因素
+}
+
+message RankUserS {
+    repeated RankUser rankers = 1;  //榜单，固定, 优化
+    RankUser self = 2; //用户自己
+}

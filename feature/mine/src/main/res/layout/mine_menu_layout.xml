@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.hao.ui.widget.SettingItemView
+        android:id="@+id/siv_accessories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:backgroundCorner="all"
+        app:leftImage="@mipmap/mine_item_accessories"
+        app:leftImageSize="24dp"
+        app:leftImageVisible="visible"
+        app:leftText="@string/mine_item_accessories"
+        app:rightArrowVisible="visible" />
+
+    <com.hao.ui.widget.SettingItemView
+        android:id="@+id/siv_decorations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:backgroundCorner="all"
+        app:leftImage="@mipmap/mine_item_decorations"
+        app:leftImageSize="24dp"
+        app:leftImageVisible="visible"
+        app:leftText="@string/mine_item_decorations"
+        app:rightArrowVisible="visible" />
+
+    <com.hao.ui.widget.SettingItemView
+        android:id="@+id/siv_historys"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:backgroundCorner="all"
+        app:leftImage="@mipmap/mine_item_historys"
+        app:leftImageSize="24dp"
+        app:leftImageVisible="visible"
+        app:leftText="@string/mine_item_historys"
+        app:rightArrowVisible="visible" />
+
+    <com.hao.ui.widget.SettingItemView
+        android:id="@+id/siv_invite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:backgroundCorner="all"
+        app:leftImage="@mipmap/mine_item_invite"
+        app:leftImageSize="24dp"
+        app:leftImageVisible="visible"
+        app:leftText="@string/mine_item_invite"
+        app:rightArrowVisible="visible" />
+
+    <com.hao.ui.widget.SettingItemView
+        android:id="@+id/siv_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundCorner="all"
+        app:leftImage="@mipmap/mine_item_settings"
+        app:leftImageSize="24dp"
+        app:leftImageVisible="visible"
+        app:leftText="@string/mine_item_settings"
+        app:rightArrowVisible="visible" />
+</LinearLayout>

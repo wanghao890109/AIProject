@@ -1,0 +1,2 @@
+-keep class com.hao.permission.** { *; }
+-keep class com.hjq.permissions.** { *; }

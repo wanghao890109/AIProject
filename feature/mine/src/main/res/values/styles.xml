@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="level_progress_horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <!--进度条的进度颜色drawable文件-->
+        <item name="android:progressDrawable">@drawable/level_progress_indeterminate_horizontal</item>
+        <!--进度条的最小高度-->
+        <item name="android:minHeight">8dp</item>
+        <!--进度条的最大高度-->
+        <item name="android:maxHeight">10dp</item>
+    </style>
+</resources>

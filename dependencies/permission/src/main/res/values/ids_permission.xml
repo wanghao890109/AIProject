@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--取消权限的tag -->
+    <item name="ids_permission_cancel" type="id" />
+
+</resources>

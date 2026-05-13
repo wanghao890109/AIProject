@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="login_with_google">Login with Google</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="login_with_mobile">Login with Mobile</string>
+    <string name="login_with_email">Login with Email</string>
+    <string name="read_term_and_policy">Login means you agree to Terms of service and Privacy Policy</string>
+
+</resources>

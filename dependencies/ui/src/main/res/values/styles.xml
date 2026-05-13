@@ -1,0 +1,230 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--加粗标题栏字体样式-->
+    <style name="Theme_Textview_Bold_Style">
+        <item name="android:textColor">@color/main_font_color</item>
+        <item name="android:textSize">@dimen/font_big_text_size_18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!-- 一级标题加粗字体样式-->
+    <style name="Title_First_Textview_Bold_Style">
+        <item name="android:textColor">@color/normal_font_color</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 一级标题不加粗字体样式-->
+    <style name="Title_First_Textview_Style">
+        <item name="android:textColor">@color/normal_font_color</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+    </style>
+
+    <!-- 二级标题字体加粗样式-->
+    <style name="Title_Second_Textview_Bold_Style">
+        <item name="android:textColor">@color/normal_font_color</item>
+        <item name="android:textSize">@dimen/font_small_text_size_14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--细文字体样式 14sp-->
+    <style name="Detail_Textview_Style">
+        <item name="android:textColor">@color/normal_font_color</item>
+        <item name="android:textSize">@dimen/font_small_text_size_14sp</item>
+    </style>
+    <!--细文字体样式 12sp-->
+    <style name="Detail_Textview_Small_Style">
+        <item name="android:textColor">@color/normal_font_color</item>
+        <item name="android:textSize">@dimen/font_mini_text_size_12sp</item>
+    </style>
+
+    <style name="Detail_White_Textview_Style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_small_text_size_14sp</item>
+    </style>
+    <!--注释字灰色体样式-->
+    <style name="Label_Textview_Style">
+        <item name="android:textColor">@color/detail_font_color</item>
+        <item name="android:textSize">@dimen/font_small_text_size_14sp</item>
+    </style>
+
+    <!--加粗灰色体样式-->
+    <style name="Label_Textview_Bold_Style">
+        <item name="android:textColor">@color/detail_font_color</item>
+        <item name="android:textSize">@dimen/font_mini_text_size_12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--二级不加粗白色字体样式-->
+    <style name="Second_Textview_Style">
+        <item name="android:textColor">@color/normal_font_color</item>
+        <item name="android:textSize">@dimen/font_mini_text_size_12sp</item>
+    </style>
+
+    <style name="Second_White_Textview_Style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_mini_text_size_12sp</item>
+    </style>
+
+    <!-- 底部弹出dialog动画-->
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_bottom_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_bottom_exit</item>
+    </style>
+    <!-- 底部弹出dialog动画-->
+    <style name="CentreDialogAnimation">
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+    </style>
+
+    <!-- 黄色button通用样式-->
+    <style name="Button_Yellow_Common">
+        <item name="android:textColor">@color/black_font_color</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+        <item name="android:background">@drawable/rectangle_radius_8dp_bg_ffc811</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- 黄色button通用样式白色字体-->
+    <style name="Button_Purple_Common_White_Font">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+        <item name="android:background">@drawable/rectangle_radius_25dp_bg_8b72f7</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- 黄色button不可点击状态-->
+    <style name="Button_Purple_Common_No_Click">
+        <item name="android:textColor">@color/white_80</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+        <item name="android:background">@drawable/rectangle_radius_25dp_bg_dee2ea</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- 白底灰色边框button通用样式-->
+    <style name="Button_White_BG_Grey_Stroke_Common">
+        <item name="android:textColor">@color/edit_text_normal_color</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+        <item name="android:background">@drawable/rectangle_radius_8dp_bg_ffffff_stroke_acacac</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- 灰色button通用样式-->
+    <style name="Black_Yellow_Common">
+        <item name="android:textColor">@color/normal_font_color</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+        <item name="android:background">@drawable/rectangle_radius_8dp_bg_1fffffff</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- 红色button通用样式-->
+    <style name="Button_Red_Common">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+        <item name="android:background">@drawable/rectangle_radius_25dp_bg_ff2f67</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- 紫色button通用样式-->
+    <style name="Button_Purple_Common">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_normal_text_size_16sp</item>
+        <item name="android:background">@drawable/rectangle_radius_25dp_bg_8b72f7</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- 水平分割线通用样式-->
+    <style name="Horizontal_divider_line">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/label_font_color_e8</item>
+    </style>
+
+    <!-- 水平白色分割线通用样式-->
+    <style name="Horizontal_divider_line_white">
+        <item name="android:layout_height">15dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="Theme.Translucent.NoTitle.Floating" parent="@style/Theme.Haiyaa">
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- <item name="android:windowAnimationStyle">@style/notAnimation</item>-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <!--自动换行布局配置-->
+    <style name="WarpLinearLayoutDefault">
+        <item name="grivate">left</item>
+        <item name="horizontal_Space">20dp</item>
+        <item name="vertical_Space">20dp</item>
+        <item name="isFull">false</item>
+    </style>
+
+    <declare-styleable name="voicePlayingIconAttr">
+        <attr name="pointer_color" format="color" />
+        <attr name="pointer_num" format="integer" />
+        <attr name="pointer_width" format="float" />
+        <attr name="pointer_speed" format="integer" />
+    </declare-styleable>
+    <!--解决TabLayout 字体大写问题-->
+    <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+    <!--activity进度弹窗-->
+    <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+    </style>
+
+    <style name="LoadingDialogStyle" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!-- android:backgroundDimEnabled，设置为true时候，整个Dialog的大背景就是半透明的黑色，如果设置为false就是全透明
+            android:backgroundDimAmount表示暗度，0.0f完全不暗，即背景是可见的 ，1.0f时候，背景全部变黑暗    -->
+    </style>
+
+    <!-- 输入聊天 圆角输入框-->
+    <style name="EditText_Text_Style" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:minHeight">40dip</item>
+        <item name="android:background">@drawable/rectangle_radius_8dp_bg_f6f6f6</item>
+        <item name="android:textColor">@color/main_font_color</item>
+        <item name="android:textColorHint">@color/detail_font_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Switch_">
+        <item name="android:splitTrack">@color/transparent</item>
+        <item name="android:trackTint" tools:targetApi="m">@color/transparent</item>
+        <item name="android:thumbTint">@color/transparent</item>
+        <item name="android:thumb">@color/transparent</item>
+        <item name="android:track">@color/transparent</item>
+        <item name="android:background">@drawable/selector_switch_bg</item>
+        <item name="android:showText">false</item>
+    </style>
+
+    <style name="CustomBottomSheetDialogFragmentTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="BEditText_Counter" parent="@style/BEditText">
+        <item name="bems">30</item>
+    </style>
+
+    <style name="RadioButtonStyles">
+        <item name="android:button">@drawable/selector_check_box</item>
+    </style>
+</resources>

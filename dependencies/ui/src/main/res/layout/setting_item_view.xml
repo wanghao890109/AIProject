@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="60dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_left_pic"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_left_item"
+        style="@style/Title_Second_Textview_Bold_Style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_right_item"
+        style="@style/Label_Textview_Style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:gravity="end"
+        android:lines="1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_right_pic"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone" />
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_right_arrow"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/forward_white_right" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

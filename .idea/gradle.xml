@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="testRunner" value="CHOOSE_PER_TEST" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="11" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/dependencies" />
+            <option value="$PROJECT_DIR$/dependencies/appcore" />
+            <option value="$PROJECT_DIR$/dependencies/common" />
+            <option value="$PROJECT_DIR$/dependencies/jsbridge" />
+            <option value="$PROJECT_DIR$/dependencies/permission" />
+            <option value="$PROJECT_DIR$/dependencies/proto" />
+            <option value="$PROJECT_DIR$/dependencies/quickadapter" />
+            <option value="$PROJECT_DIR$/dependencies/service" />
+            <option value="$PROJECT_DIR$/dependencies/statemanager" />
+            <option value="$PROJECT_DIR$/dependencies/ui" />
+            <option value="$PROJECT_DIR$/dependencies/zip" />
+            <option value="$PROJECT_DIR$/feature" />
+            <option value="$PROJECT_DIR$/feature/container" />
+            <option value="$PROJECT_DIR$/feature/login" />
+            <option value="$PROJECT_DIR$/feature/mine" />
+          </set>
+        </option>
+        <option name="resolveExternalAnnotations" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

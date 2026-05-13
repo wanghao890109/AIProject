@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomItemContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackgroundBorderless"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="2dp"
+    android:paddingBottom="4dp">
+
+    <com.opensource.svgaplayer.SVGAImageView
+        android:id="@+id/svgaImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        app:antiAlias="true"
+        app:clearsAfterStop="false"
+        app:fillMode="Forward"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:loopCount="1" />
+
+    <TextView
+        android:id="@+id/bottomLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/svgaImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:lines="1"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/svgaImage"
+        tools:text="我的" />
+
+    <com.hao.ui.widget.UnreadTextView
+        android:id="@+id/tv_unread_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@+id/svgaImage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="@dimen/font_mini_text_size_10sp"
+        android:visibility="gone"
+        app:circleRadius="10dp"
+        app:circleWidth="16dp"
+        app:circlePaddingHorizontal="4dp"
+        tools:text="9" />
+</androidx.constraintlayout.widget.ConstraintLayout>

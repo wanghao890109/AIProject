@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="now">Now</string>
+    <string name="minutes_ago">%d minutes ago</string>
+    <string name="hours_ago">%d hours ago</string>
+    <string name="days_ago">%d days ago</string>
+    <string name="weeks_ago">%d weeks ago</string>
+    <string name="months_ago">%d months ago</string>
+    <string name="years_ago">%d years ago</string>
+    <string name="hours">%dh</string>
+    <string name="minutes">%dm</string>
+    <string name="ellipsis">&#8230;</string><!--省略号-->
+</resources>

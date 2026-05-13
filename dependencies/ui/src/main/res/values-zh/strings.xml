@@ -1,0 +1,68 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+<!--    &lt;!&ndash;Toast 开始，里面的内容只有英文&ndash;&gt;-->
+<!--    <string name="bad_net_work">网络不给力呀，检查下你的网络设置吧~</string>-->
+<!--    &lt;!&ndash; 刷新控件&ndash;&gt;-->
+<!--    <string name="listview_header_hint_normal">刷新</string>-->
+<!--    <string name="listview_header_hint_release">释放刷新</string>-->
+<!--    <string name="listview_loading">加载中&#8230;</string>-->
+<!--    <string name="nomore_loading">\\n</string>-->
+<!--    <string name="refreshing">刷新中&#8230;</string>-->
+<!--    <string name="refresh_done">刷新完成</string>-->
+<!--    <string name="loading_done">加载完成</string>-->
+<!--    <string name="listview_header_last_time">上次更新时间：</string>-->
+
+<!--    &lt;!&ndash;全局统一Toast &ndash;&gt;-->
+<!--    <string name="no_wifi">The current network is unavailable, please check your network settings</string>-->
+
+<!--    &lt;!&ndash;Toast 结束&ndash;&gt;-->
+<!--    <string name="official">官方</string>-->
+<!--    <string name="empty">暂时还没有内容</string>-->
+<!--    <string name="add">添加</string>-->
+<!--    <string name="refresh">刷新</string>-->
+<!--    <string name="details">详情</string>-->
+
+<!--&lt;!&ndash;    <string name="term_of_service">用户服务协议</string>-->
+<!--    <string name="private_policy">隐私政策</string>&ndash;&gt;-->
+<!--    <string name="notification_error_ssl_cert_invalid">错误ssl证书无效</string>-->
+<!--    <string name="continue_tips">继续</string>-->
+<!--    <string name="cancel">取消</string>-->
+<!--    <string name="confirm">确定</string>-->
+<!--    <string name="settings">设置</string>-->
+
+<!--    <string name="welcome_to_campfire">欢迎使用太空营地</string>-->
+<!--    <string name="privacy_policy_content">我们（太空营地）非常重视您的隐私保护和个人信息保护，在您使用我们的APP前，请仔细阅读以下条款并同意《用户协议》和《隐私政策》，以接受我们的服务。</string>-->
+<!--    <string name="user_agreement_key">《用户协议》</string>-->
+<!--    <string name="privacy_policy_key">《隐私政策》</string>-->
+<!--    <string name="agree">同意</string>-->
+<!--    <string name="disagree">不同意</string>-->
+<!--    <string name="user_agreement_privacy">用户协议及隐私政策</string>-->
+<!--    <string name="read_privacy_content">请您仔细阅读下述文本并确认是否同意《用户协议》和《隐私政策》&#160;</string>-->
+
+<!--    <string name="ok">好的</string>-->
+<!--    <string name="finish">完成</string>-->
+<!--    <string name="followings">关注</string>-->
+<!--    <string name="followers">粉丝</string>-->
+<!--    <string name="gifts">礼物</string>-->
+<!--    <string name="chat">聊天</string>-->
+<!--    <string name="join">加入</string>-->
+<!--    <string name="space_campfire">太空营地</string>-->
+<!--    <string name="black_list">黑名单</string>-->
+<!--    <string name="avatar">头像</string>-->
+<!--    <string name="name">昵称</string>-->
+<!--    <string name="signature">签名</string>-->
+<!--    <string name="gender">性别</string>-->
+<!--    <string name="birthday">生日</string>-->
+<!--    <string name="tag">标签</string>-->
+<!--    <string name="diamonds">钻石</string>-->
+<!--    <string name="recharge">充值</string>-->
+<!--    <string name="male">男性</string>-->
+<!--    <string name="female">女性</string>-->
+<!--    <string name="keep_secret">保密</string>-->
+<!--    <string name="quadratic_sex">非二元性别</string>-->
+<!--    <string name="setting">设置</string>-->
+<!--    <string name="remove">移除</string>-->
+<!--    <string name="it_is_empty">内容为空</string>-->
+
+<!--    <string name="report">举报</string>-->
+<!--    <string name="toast_report_success">感谢你的举报，我们会尽快处理</string>-->
+</resources>

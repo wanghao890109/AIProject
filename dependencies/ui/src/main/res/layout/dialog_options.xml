@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dimen_default_padding_lr"
+    android:paddingEnd="@dimen/dimen_default_padding_lr"
+    android:paddingBottom="44dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="15dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/close_icon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tips_title"
+        style="@style/Title_First_Textview_Bold_Style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_tips"
+        style="@style/Detail_Textview_Style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_default_padding_lr" />
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            style="@style/Black_Yellow_Common"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="100dp"
+            android:text="@string/cancel" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_confirm"
+            style="@style/Button_Purple_Common_White_Font"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/dimen_default_padding_lr"
+            android:layout_marginTop="15dp"
+            android:text="@string/confirm" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

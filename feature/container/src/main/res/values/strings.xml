@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+
+    <string name="game_tab_text">Play</string>
+    <string name="room_tab_text">Room</string>
+    <string name="message_tab_text">Message</string>
+    <string name="mine_tab_text">Me</string>
+    <string name="press_again_to_exit_the_app">Press again to exit the app</string>
+</resources>

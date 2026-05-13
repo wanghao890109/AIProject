@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package haiyaa;
+
+option java_package = "com.hao.proto";
+option go_package   = "svr/public/proto/haiyaa";
+
+//业务应用类型
+enum UploadFor{
+	
+	UploadFor_Zero  = 0;
+    // UF_FOREVER		    = 0x01; // 头像，瞬间或评论，永久存储
+    // UF_TEMP	            = 0x02; // 聊天，临时存储30天
+    UF_STORE_AVATAR = 1;    //上传用途 头像
+    UF_STORE_BIO    = 2;    //个人简介
+	UF_STORE_MOMENT = 3;    //动态
+	UF_STORE_ALBUM  = 4;    //相册
+	UF_STORE_APK    = 5;    //文件包
+	UF_STORE_CHAT   = 6;    //聊天
+    UF_FEED_BACK    = 7;    //反馈截图
+}
+
+//上传图片及视频信息
+message UploadInfo
+{
+	string  fileName	= 1;  //文件名字
+	string  fileExt     = 2;  //文件扩展 必填 "png" "jpg" "jpeg" "mp4"
+    string  fileUrl     = 3;  //上传之后的地址
+    string  thumbUrl    = 4;  //上传之后的缩略地址
+	int64   width       = 5;  //图片宽度
+	int64   height      = 6;  //图片高度
+    int64   secs        = 7;  //时长
+    int64   size        = 8;  //大小
+	bytes   fileData    = 9;  //文件数据 必填
+    int64   useFor      = 10; //业务用途 必填 参见 UploadFor
+    int64   keyId       = 11; //所属的Id, 一般指游戏Id, 瞬间填所属游戏的Id， 用户头像填用户Id
+    int32   reject      = 12;
+}
+
+message UploadAPKReq
+{
+	string  fileName	= 1; //文件名字
+    int64   size        = 2; //大小
+	bytes   fileData    = 3; //文件数据 必填
+    string  version     = 4; //APK版本号
+    string  updateTip   = 5; //文案提示
+}
+
+message UploadAPKRsp
+{
+	string  downloadUrl	= 1; //下载链接
+}
+
+// enum AbuseType {
+//     normal     = 0; // 正常
+//     nicksign   = 1; // 昵称/个性签名违规；
+//     gallery    = 2; // 图片涉黄/恐怖/暴力
+//     audio      = 3; // 声音资料色情低俗
+//     cheat      = 4; // 存在欺诈行为；
+//     unfriendly = 5; // 辱骂/嘲讽/不友善；
+//     other      = 6; // 其他
+// }
+
+// //用户举报
+// message UserReport {
+//     int32  type    = 1; // 类型
+//     int64  toUid   = 2; // 被举报人
+//     string reason  = 3; // 理由
+// }
+
+// //用户反馈
+// message UserFeedback {
+//     string content = 2; // 反馈内容
+// }

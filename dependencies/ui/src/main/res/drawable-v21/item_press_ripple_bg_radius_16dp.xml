@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/item_press_ripple_color">
+    <!--主背景灰色方形 16dp圆角水波纹-->
+    <item
+        android:drawable="@drawable/rectangle_radius_16dp_bg_ffffff"
+        android:state_enabled="true"></item>
+
+</ripple>

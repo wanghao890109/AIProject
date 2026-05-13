@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+    <paths>
+        <external-path
+            name="camera_photos"
+            path="" />
+        <external-path
+            name="apk_download"
+            path="Haiyaa/Download" />
+        <root-path
+            name="camera_photos"
+            path="" />
+    </paths>
+</resources>

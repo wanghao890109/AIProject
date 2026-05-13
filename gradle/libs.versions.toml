@@ -1,0 +1,112 @@
+[versions]
+agp = "8.8.0-rc02"
+kotlin = "1.9.24"
+coreKtx = "1.10.1"
+espressoCore = "3.5.1"
+appcompat = "1.6.1"
+material = "1.10.0"
+arouter = "1.5.1"
+fastjson = "1.2.75"
+gson = "2.8.6"
+rxjava = "2.2.9"
+rxandroid = "2.1.1"
+okio = "3.0.0"
+utilcodex = "1.31.0"
+live-event-bus = "1.8.0"
+fragment-ktx = "1.3.2"
+retrofit = "2.9.0"
+converter-gson = "2.9.0"
+adapter-rxjava2 = "2.9.0"
+whsocket = "1.5"
+okdownload = "1.0.7"
+channel-helper = "2.0.3"
+video-processor = "2.4.2"
+smart-refresh = "2.0.5"
+svgaplayer = "2.6.1"
+animation = "2.24.0"
+immersionbar = "3.2.2"
+okhttp = "4.9.0"
+glide = "4.11.0"
+glide-transformations = "4.1.0"
+rxlifecycle = "4.0.2"
+banner = "2.2.2"
+flyco-roundview = "1.1.4"
+recyclerview = "1.4.0"
+annotation = "1.8.0"
+databinding-runtime = "8.0.0"
+device-compat = "2.3"
+xx-permissions = "28.0"
+exifinterface = "1.3.3"
+viewpager2 = "1.0.0"
+constraintlayout = "2.1.4"
+camera = "1.3.0"
+transition = "1.4.1"
+concurrent-futures = "1.1.0"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+arouter-compiler = { group = "com.alibaba", name = "arouter-compiler", version.ref = "arouter" }
+arouter-api = { group = "com.alibaba", name = "arouter-api", version.ref = "arouter" }
+fastjson = { group = "com.alibaba", name = "fastjson", version.ref = "fastjson" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+rxjava = { group = "io.reactivex.rxjava2", name = "rxjava", version.ref = "rxjava" }
+rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
+okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
+utilcodex = { group = "com.blankj", name = "utilcodex", version.ref = "utilcodex" }
+live-event-bus = { group = "io.github.jeremyliao", name = "live-event-bus", version.ref = "live-event-bus" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converter-gson" }
+retrofit-adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "adapter-rxjava2" }
+whsocket = { group = "com.github.whdroid", name = "whsocket", version.ref = "whsocket" }
+okdownload = { group = "com.liulishuo.okdownload", name = "okdownload", version.ref = "okdownload" }
+channel-helper = { group = "com.leon.channel", name = "helper", version.ref = "channel-helper" }
+video-processor = { group = "com.github.yellowcath", name = "VideoProcessor", version.ref = "video-processor" }
+smart-refresh-layout = { group = "io.github.scwang90", name = "refresh-layout-kernel", version.ref = "smart-refresh" }
+smart-refresh-header-classics = { group = "io.github.scwang90", name = "refresh-header-classics", version.ref = "smart-refresh" }
+smart-refresh-header-radar = { group = "io.github.scwang90", name = "refresh-header-radar", version.ref = "smart-refresh" }
+smart-refresh-header-falsify = { group = "io.github.scwang90", name = "refresh-header-falsify", version.ref = "smart-refresh" }
+smart-refresh-header-material = { group = "io.github.scwang90", name = "refresh-header-material", version.ref = "smart-refresh" }
+smart-refresh-header-two-level = { group = "io.github.scwang90", name = "refresh-header-two-level", version.ref = "smart-refresh" }
+smart-refresh-footer-ball = { group = "io.github.scwang90", name = "refresh-footer-ball", version.ref = "smart-refresh" }
+smart-refresh-footer-classics = { group = "io.github.scwang90", name = "refresh-footer-classics", version.ref = "smart-refresh" }
+svgaplayer = { group = "com.github.yyued", name = "SVGAPlayer-Android", version.ref = "svgaplayer" }
+animation-awebp = { group = "com.github.penfeizhou.android.animation", name = "awebp", version.ref = "animation" }
+animation-gif = { group = "com.github.penfeizhou.android.animation", name = "gif", version.ref = "animation" }
+animation-apng = { group = "com.github.penfeizhou.android.animation", name = "apng", version.ref = "animation" }
+animation-glide-plugin = { group = "com.github.penfeizhou.android.animation", name = "glide-plugin", version.ref = "animation" }
+immersionbar = { group = "com.geyifeng.immersionbar", name = "immersionbar", version.ref = "immersionbar" }
+immersionbar-ktx = { group = "com.geyifeng.immersionbar", name = "immersionbar-ktx", version.ref = "immersionbar" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+glide-transformations = { group = "jp.wasabeef", name = "glide-transformations", version.ref = "glide-transformations" }
+rxlifecycle = { group = "com.trello.rxlifecycle4", name = "rxlifecycle", version.ref = "rxlifecycle" }
+rxlifecycle-components = { group = "com.trello.rxlifecycle4", name = "rxlifecycle-components", version.ref = "rxlifecycle" }
+banner = { group = "io.github.youth5201314", name = "banner", version.ref = "banner" }
+flyco-roundview = { group = "com.flyco.roundview", name = "FlycoRoundView_Lib", version.ref = "flyco-roundview" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+androidx-databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databinding-runtime" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+device-compat = { group = "com.github.getActivity", name = "DeviceCompat", version.ref = "device-compat" }
+xx-permissions = { group = "com.github.getActivity", name = "XXPermissions", version.ref = "xx-permissions" }
+androidx-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
+androidx-viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "camera" }
+camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camera" }
+camera-view = { group = "androidx.camera", name = "camera-view", version.ref = "camera" }
+camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camera" }
+androidx-transition = { group = "androidx.transition", name = "transition", version.ref = "transition" }
+androidx-concurrent-futures = { group = "androidx.concurrent", name = "concurrent-futures", version.ref = "concurrent-futures" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+

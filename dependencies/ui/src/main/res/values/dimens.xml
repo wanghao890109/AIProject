@@ -1,0 +1,44 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <!--    <dimen name="tab_bar_height">60dip</dimen>-->
+    <!--    <dimen name="sub_tab_bar_height">39dip</dimen>-->
+    <dimen name="status_bar_height">40dp</dimen>
+    <!--通用字体大小-->
+    <dimen name="font_mini_text_size_8sp">8sp</dimen>
+    <dimen name="font_mini_text_size_10sp">10sp</dimen>
+    <dimen name="font_mini_text_size_12sp">12sp</dimen>
+    <dimen name="font_small_text_size_14sp">14sp</dimen>
+    <dimen name="font_small_text_size_15sp">15sp</dimen>
+    <dimen name="font_normal_text_size_16sp">16sp</dimen>
+    <dimen name="font_big_text_size_18sp">18sp</dimen>
+    <dimen name="font_big_text_size_24sp">24sp</dimen>
+    <dimen name="font_logo_text_size_29sp">29sp</dimen>
+    <dimen name="font_text_size_34sp">34sp</dimen>
+
+    <!--通用的左右两边距-->
+    <dimen name="dimen_default_padding_lr">15dip</dimen>
+    <!--    标题栏的高度-->
+    <dimen name="title_bar_height">58dp</dimen>
+    <!--聊天右边距-->
+    <dimen name="dimen_message_margin_lr">65dip</dimen>
+    <dimen name="dimen_small_padding_lr">10dip</dimen>
+
+    <!--裁剪框相关距离-->
+    <dimen name="border_thickness">3dp</dimen>
+    <dimen name="corner_thickness">5dp</dimen>
+    <dimen name="guideline_thickness">1px</dimen>
+    <dimen name="target_radius">24dp</dimen>
+    <dimen name="snap_radius">3dp</dimen>
+    <dimen name="corner_length">20dp</dimen>
+    <dimen name="chat_list_item_max_width">280dp</dimen>
+
+    <dimen name="custom_profile_party_image">44dp</dimen>
+    <dimen name="custom_profile_user_image_width">46dp</dimen>
+    <dimen name="custom_profile_user_image_height">49dp</dimen>
+    <dimen name="custom_profile_padding">3dp</dimen>
+    <dimen name="custom_profile_padding_bottom">6dp</dimen>
+    <dimen name="custom_profile_distance">20.725dp</dimen>
+
+</resources>

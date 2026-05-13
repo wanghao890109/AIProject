@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--圆角灰色背景-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="8dip" />
+    <solid android:color="@color/item_hint_bg_color" />
+</shape>
