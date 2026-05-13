@@ -14,6 +14,13 @@ class RoomListFragment : CoreBaseFragment<FragmentRoomListBinding>() {
 
     private val adapter = RoomListAdapter()
 
+    private val viewModel by getViewModel(RoomListViewModel::class.java) {
+        roomList.observe(it) { rooms ->
+            adapter.submitList(rooms)
+            binding?.refreshLayout?.finishRefresh()
+        }
+    }
+
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,9 +33,16 @@ class RoomListFragment : CoreBaseFragment<FragmentRoomListBinding>() {
         binding?.tvTitle?.setText(R.string.room_list_title)
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
         binding?.recyclerView?.adapter = adapter
-        adapter.submitList(fakeRoomRows())
     }
 
     override fun initListener() {
+        binding?.refreshLayout?.setOnRefreshListener {
+            viewModel.loadRooms()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadRooms()
     }
 }

@@ -14,6 +14,13 @@ class GameListFragment : CoreBaseFragment<FragmentGameListBinding>() {
 
     private val adapter = GameListAdapter()
 
+    private val viewModel by getViewModel(GameListViewModel::class.java) {
+        gameList.observe(it) { games ->
+            adapter.submitList(games)
+            binding?.refreshLayout?.finishRefresh()
+        }
+    }
+
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,9 +33,16 @@ class GameListFragment : CoreBaseFragment<FragmentGameListBinding>() {
         binding?.tvTitle?.setText(R.string.game_list_title)
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
         binding?.recyclerView?.adapter = adapter
-        adapter.submitList(fakeGameRows())
     }
 
     override fun initListener() {
+        binding?.refreshLayout?.setOnRefreshListener {
+            viewModel.loadGames()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadGames()
     }
 }

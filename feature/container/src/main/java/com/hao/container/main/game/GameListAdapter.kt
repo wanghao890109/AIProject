@@ -21,11 +21,3 @@ class GameListAdapter : ViewBindingAdapter<GameRow, ItemGameListBinding>() {
     }
 }
 
-fun fakeGameRows(): List<GameRow> = listOf(
-    GameRow("Chess", "Classic board · 1v1"),
-    GameRow("Texas Hold'em", "Cards · 2–9 players"),
-    GameRow("Go", "Board · ranked"),
-    GameRow("Mahjong", "Tiles · 4 players"),
-    GameRow("UNO", "Quick party · 4–10 players"),
-    GameRow("Sudoku", "Solo puzzle · daily challenge"),
-)

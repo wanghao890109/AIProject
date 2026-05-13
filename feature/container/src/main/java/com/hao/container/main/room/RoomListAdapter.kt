@@ -21,10 +21,3 @@ class RoomListAdapter : ViewBindingAdapter<RoomRow, ItemRoomListBinding>() {
     }
 }
 
-fun fakeRoomRows(): List<RoomRow> = listOf(
-    RoomRow("Beginner hall", "Online · 128 / 200"),
-    RoomRow("VIP room #7", "Friends only · 4 / 4"),
-    RoomRow("Quick match", "Auto-fill · 3 / 5"),
-    RoomRow("Tournament lobby", "Starts in 12 min"),
-    RoomRow("Practice (AI)", "Solo · unlimited"),
-)
